@@ -1,15 +1,16 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="compose"
+        android:shortcutId="newCursus"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
-        android:shortcutShortLabel="@string/short_shortcut"
-        android:shortcutLongLabel="@string/long_shortcut"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:shortcutShortLabel="@string/short_shortcut_new_cursus"
+        android:shortcutLongLabel="@string/long_shortcut_new_cursus"
         android:shortcutDisabledMessage="@string/compose_disabled_message1">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="fr.utt.if26.romain_dereux"
-            android:targetClass="fr.utt.if26.romain_dereux.Test" />
+            android:targetClass="fr.utt.if26.romain_dereux.ui.NewCursusActivity" />
+        <!-- TODO: Something need to be done for the shortcut because it's not creating the cursus, Maybe do a return to Main Activity, or begin with main activity then NewCursusActivity -->
         <!-- If your shortcut is associated with multiple intents, include them
              here. The last intent in the list determines what the user sees when
              they launch this shortcut. -->

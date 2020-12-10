@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">ProjetIF26</string>
-    <string name="short_shortcut">dsds</string>
-    <string name="long_shortcut">dsssdds</string>
-    <string name="compose_disabled_message1">dsssdds</string>
+    <string name="short_shortcut_new_cursus">Nouveau cursus</string>
+    <string name="long_shortcut_new_cursus">Création d\'un nouveau cursus</string>
+    <string name="compose_disabled_message1">Cannot create the shortcut</string>
+    <string name="add_cursus">Ajouter un cursus</string>
+    <string name="hint_cursus_identifier">Cursus identifier ...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Not saved</string>
 </resources>
