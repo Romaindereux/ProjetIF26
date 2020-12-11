@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
             adapter.submitList(cursus);
         });
 
+
+        //TODO Make it using databinding
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
             Intent intent = new Intent(MainActivity.this, NewCursusActivity.class);

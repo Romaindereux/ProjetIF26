@@ -13,7 +13,7 @@ public class CursusViewHolder extends RecyclerView.ViewHolder {
 
     private CursusViewHolder(View itemView) {
         super(itemView);
-        cursusItemView = itemView.findViewById(R.id.rv_cursus_item);
+        cursusItemView = itemView.findViewById(R.id.tv_rv_cursus_item);
     }
 
     public void bind(String text) {
