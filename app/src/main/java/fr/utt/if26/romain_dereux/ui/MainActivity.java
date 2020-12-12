@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import fr.utt.if26.romain_dereux.R;
+import fr.utt.if26.romain_dereux.databinding.ActivityMainBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.ui.adapter.CursusListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
     private CursusViewModel cursusViewModel;
     public static final int NEW_CURSUS_ACTIVITY_REQUEST_CODE = 1;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //Use View Binding
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final CursusListAdapter adapter = new CursusListAdapter(new CursusListAdapter.CursusDiff());
@@ -39,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //TODO Make it using databinding
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener( view -> {
-            Intent intent = new Intent(MainActivity.this, NewCursusActivity.class);
-            startActivityForResult(intent, NEW_CURSUS_ACTIVITY_REQUEST_CODE);
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NewCursusActivity.class);
+                startActivityForResult(intent, NEW_CURSUS_ACTIVITY_REQUEST_CODE);
+            }
         });
+
+
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
