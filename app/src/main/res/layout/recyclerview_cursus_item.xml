@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tv_rv_cursus_item"
-        style="@style/word_title"
+    <data>
+        <variable name="cursus" type="fr.utt.if26.romain_dereux.model.Cursus"/>
+        <variable
+            name="handlers"
+            type="fr.utt.if26.romain_dereux.ui.MyHandlers" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light" />
-</LinearLayout>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_rv_cursus_item"
+            style="@style/word_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_light"
+            android:text="@{cursus.identifier}"
+            android:onClick="@{handlers::onClickCursusItem}"/>
+    </LinearLayout>
+</layout>

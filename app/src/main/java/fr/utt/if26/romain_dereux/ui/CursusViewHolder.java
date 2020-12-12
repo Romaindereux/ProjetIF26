@@ -7,22 +7,26 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import fr.utt.if26.romain_dereux.R;
+import fr.utt.if26.romain_dereux.databinding.RecyclerviewCursusItemBinding;
+import fr.utt.if26.romain_dereux.model.Cursus;
 
 public class CursusViewHolder extends RecyclerView.ViewHolder {
-    private final TextView cursusItemView;
+    //private final TextView cursusItemView;
+    private RecyclerviewCursusItemBinding binding;
 
-    private CursusViewHolder(View itemView) {
-        super(itemView);
-        cursusItemView = itemView.findViewById(R.id.tv_rv_cursus_item);
+    private CursusViewHolder(RecyclerviewCursusItemBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        //cursusItemView = itemView.findViewById(R.id.tv_rv_cursus_item);
     }
 
-    public void bind(String text) {
-        cursusItemView.setText(text);
+    public void bind(Cursus cursus) {
+        binding.setCursus(cursus);
     }
 
     public static CursusViewHolder create(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_cursus_item, parent, false);
-        return new CursusViewHolder(view);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        RecyclerviewCursusItemBinding itemBinding = RecyclerviewCursusItemBinding.inflate(layoutInflater, parent, false);
+        return new CursusViewHolder(itemBinding);
     }
 }

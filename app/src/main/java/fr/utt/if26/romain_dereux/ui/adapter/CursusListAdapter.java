@@ -22,7 +22,7 @@ public class CursusListAdapter extends ListAdapter<Cursus, CursusViewHolder> {
     @Override
     public void onBindViewHolder(CursusViewHolder holder, int position) {
         Cursus current = getItem(position);
-        holder.bind(current.getIdentifier());
+        holder.bind(current);
     }
 
     public static class CursusDiff extends DiffUtil.ItemCallback<Cursus> {

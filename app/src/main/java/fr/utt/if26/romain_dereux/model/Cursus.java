@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+
+
 @Entity(tableName = "cursus_table")
 public class Cursus {
 
@@ -18,5 +20,9 @@ public class Cursus {
     }
     public String getIdentifier(){
         return this.mIdentifier;
+    }
+
+    public void setIdentifier(@NonNull String mIdentifier) {
+        this.mIdentifier = mIdentifier;
     }
 }

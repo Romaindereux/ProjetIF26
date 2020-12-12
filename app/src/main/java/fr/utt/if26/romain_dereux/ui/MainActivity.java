@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = binding.recyclerview;
         final CursusListAdapter adapter = new CursusListAdapter(new CursusListAdapter.CursusDiff());
 
         recyclerView.setAdapter(adapter);

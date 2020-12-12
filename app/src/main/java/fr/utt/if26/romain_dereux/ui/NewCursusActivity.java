@@ -1,7 +1,10 @@
 package fr.utt.if26.romain_dereux.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import fr.utt.if26.romain_dereux.R;
+import fr.utt.if26.romain_dereux.databinding.ActivityNewCursusBinding;
+import fr.utt.if26.romain_dereux.model.Cursus;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,29 +12,29 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class NewCursusActivity extends AppCompatActivity {
+public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     public static final String EXTRA_REPLY = "com.example.android.cursuslistsql.REPLY";
+    private ActivityNewCursusBinding binding;
 
-    private EditText mEditCursusIdentifier;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_cursus);
-        mEditCursusIdentifier = findViewById(R.id.et_cursus_identifier);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_cursus);
 
-        final Button button = findViewById(R.id.button_save);
-        button.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
-            if (TextUtils.isEmpty(mEditCursusIdentifier.getText())) {
-                setResult(RESULT_CANCELED, replyIntent);
-            } else {
-                String word = mEditCursusIdentifier.getText().toString();
-                replyIntent.putExtra(EXTRA_REPLY, word);
-                setResult(RESULT_OK, replyIntent);
-            }
-            finish();
-        });
+        Cursus cursus = new Cursus("");
+        binding.setCursus(cursus);
+        //TODO: See if it's possible to delete the interface
+        binding.setIAddCursus((IAddCursus) this);
+
+    }
+    @Override
+    public void inflateNewCursus(){
+        Intent replyIntent = new Intent();
+        String identifier = binding.getCursus().getIdentifier();
+        replyIntent.putExtra(EXTRA_REPLY, identifier);
+        setResult(RESULT_OK, replyIntent);
+        finish();
     }
 }

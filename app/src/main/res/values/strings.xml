@@ -7,4 +7,5 @@
     <string name="hint_cursus_identifier">Cursus identifier ...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Not saved</string>
+    <string name="cursus_clicked">Cursus cliqué</string>
 </resources>
