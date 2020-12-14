@@ -2,6 +2,7 @@ package fr.utt.if26.romain_dereux.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import fr.utt.if26.romain_dereux.R;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
 
         cursusViewModel.getAllCursus().observe(this, cursus -> {
-            // Update the cached copy of the words in the adapter.
             adapter.submitList(cursus);
         });
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_CURSUS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Cursus cursus = new Cursus(data.getStringExtra(NewCursusActivity.EXTRA_REPLY));
+            Cursus cursus = new Cursus(data.getStringExtra(NewCursusActivity.EXTRA_REPLY_ID), data.getStringExtra(NewCursusActivity.EXTRA_REPLY_BRANCHE));
             cursusViewModel.insert(cursus);
         } else {
             Toast.makeText(

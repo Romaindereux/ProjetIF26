@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -10,7 +12,7 @@
             type="fr.utt.if26.romain_dereux.ui.IAddCursus" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,23 +21,42 @@
             android:id="@+id/et_cursus_identifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/min_height"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-light"
             android:hint="@string/hint_cursus_identifier"
             android:inputType="textAutoComplete"
-            android:layout_margin="@dimen/big_padding"
+            android:minHeight="@dimen/min_height"
+            android:text="@={cursus.identifier}"
             android:textSize="18sp"
-            android:text="@={cursus.identifier}"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Spinner
+            android:id="@+id/nca_spinner_branche"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            android:entries="@array/branches_array"
+            android:selectedItemPosition="@={cursus.brancheID}"
+            app:layout_constraintTop_toBottomOf="@+id/et_cursus_identifier"
+            tools:layout_editor_absoluteX="16dp" />
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_save"
             android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:onClick="@{() -> iAddCursus.inflateNewCursus()}"
+            android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
-            android:onClick="@{() -> iAddCursus.inflateNewCursus()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/nca_spinner_branche"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

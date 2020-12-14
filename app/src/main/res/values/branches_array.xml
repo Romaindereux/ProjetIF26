@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="branches_array">
+        <item>ISI</item>
+        <item>RT</item>
+        <item>MTE</item>
+        <item>GM</item>
+        <item>GI</item>
+        <item>A2I</item>
+    </string-array>
+</resources>

@@ -11,13 +11,11 @@ import fr.utt.if26.romain_dereux.databinding.RecyclerviewCursusItemBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 
 public class CursusViewHolder extends RecyclerView.ViewHolder {
-    //private final TextView cursusItemView;
     private RecyclerviewCursusItemBinding binding;
 
     private CursusViewHolder(RecyclerviewCursusItemBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
-        //cursusItemView = itemView.findViewById(R.id.tv_rv_cursus_item);
     }
 
     public void bind(Cursus cursus) {

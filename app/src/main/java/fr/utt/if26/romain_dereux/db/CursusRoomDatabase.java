@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import fr.utt.if26.romain_dereux.db.dao.CursusDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 
-@Database(entities = {Cursus.class}, version = 1, exportSchema = false)
+@Database(entities = {Cursus.class}, version = 3, exportSchema = false)
 public abstract class CursusRoomDatabase extends RoomDatabase {
 
     public abstract CursusDao cursusDao();
@@ -26,7 +26,7 @@ public abstract class CursusRoomDatabase extends RoomDatabase {
         if(INSTANCE == null){
             synchronized (CursusRoomDatabase.class){
                 if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CursusRoomDatabase.class, "cursus_database").addCallback(sRoomDatabaseCallback).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CursusRoomDatabase.class, "cursus_database").fallbackToDestructiveMigration().addCallback(sRoomDatabaseCallback).build();
                 }
             }
         }
@@ -46,9 +46,9 @@ public abstract class CursusRoomDatabase extends RoomDatabase {
                 CursusDao dao = INSTANCE.cursusDao();
                 dao.deleteAll();
 
-                Cursus cursus = new Cursus("cursus1");
+                Cursus cursus = new Cursus("cursus1", "ISI");
                 dao.insert(cursus);
-                cursus = new Cursus("cursus2");
+                cursus = new Cursus("cursus2", "ISI");
                 dao.insert(cursus);
             });
         }
