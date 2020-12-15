@@ -8,4 +8,7 @@
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Not saved</string>
     <string name="cursus_clicked">Cursus cliqué</string>
+    <string name="add_cs">Ajouter des CS</string>
+    <string name="add_tm">Ajouter des TM</string>
+    <string name="add_new_cs">Ajouter une CS</string>
 </resources>

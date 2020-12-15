@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * OPTIONNAL
+     * The following create a notification channel and create a new notification
+     */
     public void createNotification(Intent intent){
         createNotificationChannel();
         NotificationManager mNotificationManager =

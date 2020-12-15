@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
@@ -30,6 +31,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         binding.setCursus(cursus);
         //TODO: See if it's possible to delete the interface
         binding.setIAddCursus((IAddCursus) this);
+        binding.setNewCursusActivity(this);
 
 
     }
@@ -43,5 +45,11 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         replyIntent.putExtra(EXTRA_REPLY_BRANCHE, branche);
         setResult(RESULT_OK, replyIntent);
         finish();
+    }
+
+    public void inflateNewUE(String category){
+        Toast.makeText(this, "New cs", Toast.LENGTH_LONG).show();
+
+
     }
 }
