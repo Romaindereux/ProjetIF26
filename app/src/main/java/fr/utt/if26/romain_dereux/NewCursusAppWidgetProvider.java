@@ -1,6 +1,7 @@
 package fr.utt.if26.romain_dereux;
 
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -20,7 +21,13 @@ public class NewCursusAppWidgetProvider extends AppWidgetProvider {
 
             // Create an Intent to launch ExampleActivity
             Intent intent = new Intent(context, NewCursusActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(MyApp.getContext());
+            stackBuilder.addNextIntentWithParentStack(intent);
+            PendingIntent pendingIntent =
+                    stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
             // Get the layout for the App Widget and attach an on-click listener
             // to the button

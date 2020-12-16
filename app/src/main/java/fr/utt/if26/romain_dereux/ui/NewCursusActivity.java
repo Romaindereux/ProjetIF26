@@ -9,6 +9,7 @@ import fr.utt.if26.romain_dereux.model.Cursus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +18,14 @@ import android.widget.Toast;
 
 public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
+    public static final String TAG = "NewCursusActivity";
+
     public static final String EXTRA_REPLY_ID = "identifier";
     public static final String EXTRA_REPLY_BRANCHE = "branche";
     private ActivityNewCursusBinding binding;
+
+    public String sigleDB;
+    public Integer creditDB;
 
 
     @Override
@@ -49,6 +55,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     public void inflateNewUE(String category){
         Toast.makeText(this, "New cs", Toast.LENGTH_LONG).show();
+        DialogNewUE dialogNewUE = new DialogNewUE();
+        dialogNewUE.show(getSupportFragmentManager(), "new cs");
 
 
     }

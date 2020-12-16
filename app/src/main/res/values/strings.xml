@@ -11,4 +11,5 @@
     <string name="add_cs">Ajouter des CS</string>
     <string name="add_tm">Ajouter des TM</string>
     <string name="add_new_cs">Ajouter une CS</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -9,6 +9,10 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="fr.utt.if26.romain_dereux"
+            android:targetClass="fr.utt.if26.romain_dereux.ui.MainActivity" />
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="fr.utt.if26.romain_dereux"
             android:targetClass="fr.utt.if26.romain_dereux.ui.NewCursusActivity" />
         <!-- TODO: Something need to be done for the shortcut because it's not creating the cursus, Maybe do a return to Main Activity, or begin with main activity then NewCursusActivity -->
         <!-- If your shortcut is associated with multiple intents, include them
