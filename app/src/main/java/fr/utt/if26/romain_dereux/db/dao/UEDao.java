@@ -25,8 +25,10 @@ public interface UEDao {
     @Query("SELECT * FROM ue_table ORDER BY sigle ASC")
     LiveData<List<UE>> getAlphabetizedUE();
 
+    @Query("SELECT * FROM ue_table WHERE branche = :branche AND category = :category")
+    LiveData<List<UE>> getUEByBrancheAndCategory(String branche, String category);
+
     //TODO Create delete by sigle
-    //TODO Create Select by branche
     //TODO Create Select by sigle
     //TODO Create Select by category
 }

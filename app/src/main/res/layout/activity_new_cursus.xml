@@ -62,7 +62,7 @@
             tools:layout_editor_absoluteX="7dp" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinner_cs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -77,8 +77,8 @@
             android:text="@string/add_new_cs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner"
-            android:onClick="@{() -> newCursusActivity.inflateNewUE(`cs`)}"/>
+            app:layout_constraintTop_toBottomOf="@+id/spinner_cs"
+            android:onClick="@{() -> newCursusActivity.inflateNewUE(`CS`)}"/>
 
         <Button
             android:id="@+id/button_save"

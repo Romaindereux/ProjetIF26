@@ -1,0 +1,36 @@
+package fr.utt.if26.romain_dereux.viewmodel;
+
+import android.app.Application;
+
+import java.util.List;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import fr.utt.if26.romain_dereux.UERepository;
+import fr.utt.if26.romain_dereux.model.UE;
+
+/**
+ * Created by Romain on 22 décembre 2020
+ * Contact me at romain.dereux@utt.fr
+ */
+
+public class UEViewModel extends AndroidViewModel {
+
+    private UERepository mRepository;
+
+    private final LiveData<List<UE>> mAllUE;
+
+    public UEViewModel (Application application) {
+        super(application);
+        mRepository = new UERepository(application);
+        mAllUE = mRepository.getAllUE();
+    }
+
+    public LiveData<List<UE>> getAllUE() { return mAllUE; }
+
+    public LiveData<List<UE>> getUEByBrancheAndCategory(String branche, String category){
+        return mRepository.getUEByBrancheAndCategory(branche, category);
+    }
+
+    public void insert(UE ue) { mRepository.insert(ue); }
+}
