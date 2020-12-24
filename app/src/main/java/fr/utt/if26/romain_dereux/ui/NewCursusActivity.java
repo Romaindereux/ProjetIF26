@@ -131,8 +131,10 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
         dialogNewUE.setBranche(branche);
         dialogNewUE.show(getSupportFragmentManager(), "new cs");
+    }
 
-
+    public void onUserCreateUe(String sigle){
+        Toast.makeText(getBaseContext(), ""+ sigle, Toast.LENGTH_LONG).show();
     }
 
 }

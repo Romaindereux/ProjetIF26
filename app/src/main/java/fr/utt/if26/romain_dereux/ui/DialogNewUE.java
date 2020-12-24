@@ -64,9 +64,12 @@ public class DialogNewUE extends DialogFragment {
         if(!sigleInput.equals("")){
             UE ue = new UE(sigleInput, branche, category, creditInput);
             ueViewModel.insert(ue);
+            NewCursusActivity newCursusActivity = (NewCursusActivity) getActivity();
+            newCursusActivity.onUserCreateUe(sigleInput);
 
-            ((NewCursusActivity)getActivity()).sigleDB = sigleInput;
-            ((NewCursusActivity)getActivity()).creditDB = creditInput;
+
+//            ((NewCursusActivity)getActivity()).sigleDB = sigleInput;
+//            ((NewCursusActivity)getActivity()).creditDB = creditInput;
             //TODO Send the sigle(pk) to the activity and display it
         }
         getDialog().dismiss();
