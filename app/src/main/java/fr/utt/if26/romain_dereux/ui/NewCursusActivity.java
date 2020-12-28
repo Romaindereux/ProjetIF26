@@ -6,12 +6,15 @@ import androidx.databinding.Observable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import fr.utt.if26.romain_dereux.MyApp;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.ActivityNewCursusBinding;
 import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
+import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
@@ -27,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +44,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     public static final String EXTRA_REPLY_ID = "identifier";
     public static final String EXTRA_REPLY_BRANCHE = "branche";
+    public static final String EXTRA_REPLY_LIST_CS = "listcs";
     private ActivityNewCursusBinding binding;
 
     public String sigleDB;
@@ -48,7 +53,13 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     private List<String> listCsSigle;
     private List<Integer> listCsCredit;
     private UEViewModel ueViewModel;
+    private UEViewModel viewModelCS;
     private Spinner spinner;
+
+    private ListView listViewCS;
+    private ArrayList<String> listCs;
+    private ArrayAdapter<String> listCSAdapter;
+
     LifecycleOwner lifecycleOwner = this;
 
 
@@ -65,7 +76,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         spinnerAdapterCs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerCs.setAdapter(spinnerAdapterCs);
 
-        Cursus cursus = new Cursus("", "");
+        Cursus cursus = new Cursus("", "", new ArrayList<>());
         cursus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -76,6 +87,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
+                        listCs.clear();
                         listCsSigle.clear();
                         for(UE ue: ues){
                             listCsSigle.add(ue.getSigle());
@@ -96,11 +108,11 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
         String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
         Log.d(TAG, branche);
-        //TODO: getUE FROM BRANCHE AND ONLY CS
         Log.d(TAG, binding.ncaSpinnerBranche.getSelectedItem().toString());
         ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
             @Override
             public void onChanged(List<UE> ues) {
+                listCs.clear();
                 listCsSigle.clear();
                 for(UE ue: ues){
                     listCsSigle.add(ue.getSigle());
@@ -109,6 +121,28 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 spinnerAdapterCs.notifyDataSetChanged();
             }
         });
+
+        /* ListView CS */
+        listViewCS = binding.lvCs;
+        listCs = new ArrayList<String>();
+        //listCs.add("NF16");       //Only for test
+        listCSAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listCs);
+        listViewCS.setAdapter(listCSAdapter);
+
+        /* On click on the cs spinner */
+        binding.spinnerCs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                addUE(selecteditem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
 
@@ -120,6 +154,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         String branche = getResources().getStringArray(R.array.branches_array)[brancheID];
         replyIntent.putExtra(EXTRA_REPLY_ID, identifier);
         replyIntent.putExtra(EXTRA_REPLY_BRANCHE, branche);
+        replyIntent.putExtra(EXTRA_REPLY_LIST_CS, listCs);
         setResult(RESULT_OK, replyIntent);
         finish();
     }
@@ -133,8 +168,13 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         dialogNewUE.show(getSupportFragmentManager(), "new cs");
     }
 
-    public void onUserCreateUe(String sigle){
+    public void addUE(String sigle){
         Toast.makeText(getBaseContext(), ""+ sigle, Toast.LENGTH_LONG).show();
+        //TODO Add the sigle into an array CSARRAY
+        listCs.add(sigle);
+        listCSAdapter.notifyDataSetChanged();
+        binding.getCursus().setListCs(listCs);
+
     }
 
 }

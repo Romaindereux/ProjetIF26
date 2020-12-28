@@ -2,6 +2,7 @@ package fr.utt.if26.romain_dereux.db;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -9,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import fr.utt.if26.romain_dereux.db.dao.CursusDao;
 import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 
-@Database(entities = {Cursus.class, UE.class}, version = 3, exportSchema = false)
+@Database(entities = {Cursus.class, UE.class}, version = 4, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class CursusRoomDatabase extends RoomDatabase {
 
     public abstract CursusDao cursusDao();
@@ -49,9 +52,9 @@ public abstract class CursusRoomDatabase extends RoomDatabase {
                 CursusDao dao = INSTANCE.cursusDao();
                 dao.deleteAll();
 
-                Cursus cursus = new Cursus("cursus1", "ISI");
+                Cursus cursus = new Cursus("cursus1", "ISI", new ArrayList<>());
                 dao.insert(cursus);
-                cursus = new Cursus("cursus2", "ISI");
+                cursus = new Cursus("cursus2", "ISI", new ArrayList<>());
                 dao.insert(cursus);
 
                 UEDao ueDao = INSTANCE.ueDao();

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.nio.channels.Channels;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_CURSUS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Cursus cursus = new Cursus(data.getStringExtra(NewCursusActivity.EXTRA_REPLY_ID), data.getStringExtra(NewCursusActivity.EXTRA_REPLY_BRANCHE));
+            Cursus cursus = new Cursus(data.getStringExtra(NewCursusActivity.EXTRA_REPLY_ID), data.getStringExtra(NewCursusActivity.EXTRA_REPLY_BRANCHE),data.getStringArrayListExtra(NewCursusActivity.EXTRA_REPLY_LIST_CS) );
             cursusViewModel.insert(cursus);
         } else {
             Toast.makeText(
