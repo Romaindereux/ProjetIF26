@@ -55,19 +55,18 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     public String sigleDB;
     public Integer creditDB;
 
-    private List<String> listCsSigle;
-    private List<String> listTmSigle;
-    private List<Integer> listCsCredit;
-    private List<Integer> listTmCredit;
+    private List<String> listCsSigle, listTmSigle, listEcSigle, listMeSigle, listHtSigle;
+    private List<Integer> listCsCredit, listTmCredit, listEcCredit, listMeCredit, listHtCredit;
+
 
 
     private UEViewModel ueViewModel;
-    private UEViewModel viewModelCS;
+    //private UEViewModel viewModelCS;  //Useless
     private Spinner spinner;
 
-    private ListView listViewCS, listViewTM;
-    private ArrayList<String> listCs, listTm;
-    private ArrayAdapter<String> listCSAdapter, listTMAdapter;
+    private ListView listViewCS, listViewTM, listViewEC, listViewME, listViewHT;
+    private ArrayList<String> listCs, listTm, listEc, listMe, listHt;
+    private ArrayAdapter<String> listCSAdapter, listTMAdapter, listECAdapter, listMEAdapter, listHTAdapter;
 
     private Switch switchNpml;
 
@@ -85,6 +84,9 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
         listCsSigle = new ArrayList<>();
         listTmSigle = new ArrayList<>();
+        listEcSigle = new ArrayList<>();
+        listMeSigle = new ArrayList<>();
+        listHtSigle = new ArrayList<>();
 
         // Spinner CS
         ArrayAdapter<String> spinnerAdapterCs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listCsSigle);
@@ -96,13 +98,33 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         spinnerAdapterTm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerTm.setAdapter(spinnerAdapterTm);
 
-        Cursus cursus = new Cursus("", "", new ArrayList<>(), new ArrayList<>(), false);
+        //Spinner EC
+        ArrayAdapter<String> spinnerAdapterEc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listEcSigle);
+        spinnerAdapterEc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerEc.setAdapter(spinnerAdapterEc);
+
+        //Spinner ME
+        ArrayAdapter<String> spinnerAdapterMe = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listMeSigle);
+        spinnerAdapterMe.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerMe.setAdapter(spinnerAdapterMe);
+
+        //Spinner HT
+        ArrayAdapter<String> spinnerAdapterHt = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listHtSigle);
+        spinnerAdapterHt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerHt.setAdapter(spinnerAdapterHt);
+
+
+
+        Cursus cursus = new Cursus("", "", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false);
         cursus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
                 listCs.clear();
                 listTm.clear();
+                listEc.clear();
+                listMe.clear();
+                listHt.clear();
                 ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
@@ -127,6 +149,43 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                         Utility.setListViewHeightBasedOnChildren(listViewTM);
                     }
                 });
+                ueViewModel.getUEByBrancheAndCategory(branche, "EC").observe(lifecycleOwner, new Observer<List<UE>>() {
+                    @Override
+                    public void onChanged(List<UE> ues) {
+                        listEcSigle.clear();
+                        for(UE ue: ues){
+                            listEcSigle.add(ue.getSigle());
+                            listEcCredit.add(ue.getCredit());
+                        }
+                        spinnerAdapterEc.notifyDataSetChanged();
+                        Utility.setListViewHeightBasedOnChildren(listViewEC);
+                    }
+                });
+                ueViewModel.getUEByBrancheAndCategory(branche, "ME").observe(lifecycleOwner, new Observer<List<UE>>() {
+                    @Override
+                    public void onChanged(List<UE> ues) {
+                        listMeSigle.clear();
+                        for(UE ue: ues){
+                            listMeSigle.add(ue.getSigle());
+                            listMeCredit.add(ue.getCredit());
+                        }
+                        spinnerAdapterMe.notifyDataSetChanged();
+                        Utility.setListViewHeightBasedOnChildren(listViewME);
+                    }
+                });
+                ueViewModel.getUEByBrancheAndCategory(branche, "HT").observe(lifecycleOwner, new Observer<List<UE>>() {
+                    @Override
+                    public void onChanged(List<UE> ues) {
+                        listHtSigle.clear();
+                        for(UE ue: ues){
+                            listHtSigle.add(ue.getSigle());
+                            listHtCredit.add(ue.getCredit());
+                        }
+                        spinnerAdapterHt.notifyDataSetChanged();
+                        Utility.setListViewHeightBasedOnChildren(listViewHT);
+                    }
+                });
+
             }
         });
         binding.setCursus(cursus);
@@ -137,6 +196,9 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
         listCsCredit = new ArrayList<>();
         listTmCredit = new ArrayList<>();
+        listEcCredit = new ArrayList<>();
+        listMeCredit = new ArrayList<>();
+        listHtCredit = new ArrayList<>();
 
         String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
         ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
@@ -163,6 +225,42 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 Utility.setListViewHeightBasedOnChildren(listViewTM);
             }
         });
+        ueViewModel.getUEByBrancheAndCategory(branche, "EC").observe(lifecycleOwner, new Observer<List<UE>>() {
+            @Override
+            public void onChanged(List<UE> ues) {
+                listEcSigle.clear();
+                for(UE ue: ues){
+                    listEcSigle.add(ue.getSigle());
+                    listEcCredit.add(ue.getCredit());
+                }
+                spinnerAdapterEc.notifyDataSetChanged();
+                Utility.setListViewHeightBasedOnChildren(listViewEC);
+            }
+        });
+        ueViewModel.getUEByBrancheAndCategory(branche, "ME").observe(lifecycleOwner, new Observer<List<UE>>() {
+            @Override
+            public void onChanged(List<UE> ues) {
+                listMeSigle.clear();
+                for(UE ue: ues){
+                    listMeSigle.add(ue.getSigle());
+                    listMeCredit.add(ue.getCredit());
+                }
+                spinnerAdapterMe.notifyDataSetChanged();
+                Utility.setListViewHeightBasedOnChildren(listViewME);
+            }
+        });
+        ueViewModel.getUEByBrancheAndCategory(branche, "HT").observe(lifecycleOwner, new Observer<List<UE>>() {
+            @Override
+            public void onChanged(List<UE> ues) {
+                listHtSigle.clear();
+                for(UE ue: ues){
+                    listHtSigle.add(ue.getSigle());
+                    listHtCredit.add(ue.getCredit());
+                }
+                spinnerAdapterHt.notifyDataSetChanged();
+                Utility.setListViewHeightBasedOnChildren(listViewHT);
+            }
+        });
 
 
         /* ListView CS */
@@ -177,6 +275,24 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         listTm = new ArrayList<String>();
         listTMAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listTm);
         listViewTM.setAdapter(listTMAdapter);
+
+        /* ListView EC */
+        listViewEC = binding.lvEc;
+        listEc = new ArrayList<String>();
+        listECAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listEc);
+        listViewEC.setAdapter(listECAdapter);
+
+        /* ListView ME */
+        listViewME = binding.lvMe;
+        listMe = new ArrayList<String>();
+        listMEAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listMe);
+        listViewME.setAdapter(listMEAdapter);
+
+        /* ListView HT */
+        listViewHT = binding.lvHt;
+        listHt = new ArrayList<String>();
+        listHTAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listHt);
+        listViewHT.setAdapter(listHTAdapter);
 
         /* On click on the cs spinner */
         binding.spinnerCs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -194,6 +310,36 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selecteditem =  adapterView.getItemAtPosition(i).toString();
                 addUE(selecteditem, "TM");
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+        /* On click on the ec spinner */
+        binding.spinnerEc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                addUE(selecteditem, "EC");
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+        /* On click on the me spinner */
+        binding.spinnerMe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                addUE(selecteditem, "ME");
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+        /* On click on the ht spinner */
+        binding.spinnerHt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                addUE(selecteditem, "HT");
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -253,6 +399,24 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
             binding.getCursus().setListTm(listTm);
             listTMAdapter.notifyDataSetChanged();
+        }else if (category == "EC"){
+            Log.d(TAG, "EC");
+            listEc.add(sigle);
+
+            binding.getCursus().setListEc(listEc);
+            listECAdapter.notifyDataSetChanged();
+        }else if (category == "ME"){
+            Log.d(TAG, "ME");
+            listMe.add(sigle);
+
+            binding.getCursus().setListMe(listMe);
+            listMEAdapter.notifyDataSetChanged();
+        }else if (category == "HT"){
+            Log.d(TAG, "HT");
+            listHt.add(sigle);
+
+            binding.getCursus().setListHt(listHt);
+            listHTAdapter.notifyDataSetChanged();
         }
 
 

@@ -6,7 +6,6 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import fr.utt.if26.romain_dereux.db.CursusRoomDatabase;
-import fr.utt.if26.romain_dereux.db.UERoomDatabase;
 import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.UE;
 

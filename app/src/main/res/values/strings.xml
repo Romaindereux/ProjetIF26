@@ -15,4 +15,10 @@
     <string name="npml">NPML</string>
     <string name="npml_valide">NPML validé</string>
     <string name="add_new_tm">AJOUTER UNE TM</string>
+    <string name="add_new_ec">AJOUTER UNE EC</string>
+    <string name="add_me">Ajouter des ME</string>
+    <string name="add_ec">Ajouter des EC</string>
+    <string name="add_new_me">AJOUTER UNE ME</string>
+    <string name="add_ht">Ajouter des HT</string>
+    <string name="add_new_ht">AJOUTER UNE HT</string>
 </resources>

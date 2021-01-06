@@ -33,15 +33,27 @@ public class Cursus extends BaseObservable implements Serializable {
     @ColumnInfo(name = "listTm")
     private ArrayList<String> mListTm;
 
+    @ColumnInfo(name = "listEc")
+    private ArrayList<String> mListEc;
+
+    @ColumnInfo(name = "listMe")
+    private ArrayList<String> mListMe;
+
+    @ColumnInfo(name = "listHt")
+    private ArrayList<String> mListHt;
+
     @ColumnInfo(name="npml")
     private boolean mNpml = false;
 
-    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm, boolean npml){
+    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm,ArrayList<String> listEc,ArrayList<String> listMe,ArrayList<String> listHt, boolean npml){
         this.mIdentifier = identifier;
         this.mBranche = branche;
         this.mListCs = listCs;
         this.mListTm = listTm;
         this.mNpml = npml;
+        this.mListEc = listEc;
+        this.mListMe = listMe;
+        this.mListHt = listHt;
     }
 
     public boolean isNpml() {
@@ -94,6 +106,30 @@ public class Cursus extends BaseObservable implements Serializable {
 
     public void setListTm(ArrayList<String> mListTm) {
         this.mListTm = mListTm;
+    }
+
+    public ArrayList<String> getListEc() {
+        return mListEc;
+    }
+
+    public void setListEc(ArrayList<String> mListEc) {
+        this.mListEc = mListEc;
+    }
+
+    public ArrayList<String> getListMe() {
+        return mListMe;
+    }
+
+    public void setListMe(ArrayList<String> mListMe) {
+        this.mListMe = mListMe;
+    }
+
+    public ArrayList<String> getListHt() {
+        return mListHt;
+    }
+
+    public void setListHt(ArrayList<String> mListHt) {
+        this.mListHt = mListHt;
     }
 
 }
