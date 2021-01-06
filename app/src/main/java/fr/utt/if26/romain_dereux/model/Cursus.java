@@ -42,10 +42,16 @@ public class Cursus extends BaseObservable implements Serializable {
     @ColumnInfo(name = "listHt")
     private ArrayList<String> mListHt;
 
+    @ColumnInfo(name="st09")
+    private boolean mSt09 = false;
+
+    @ColumnInfo(name="st10")
+    private boolean mSt10 = false;
+
     @ColumnInfo(name="npml")
     private boolean mNpml = false;
 
-    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm,ArrayList<String> listEc,ArrayList<String> listMe,ArrayList<String> listHt, boolean npml){
+    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm,ArrayList<String> listEc,ArrayList<String> listMe,ArrayList<String> listHt,boolean st09, boolean st10, boolean npml){
         this.mIdentifier = identifier;
         this.mBranche = branche;
         this.mListCs = listCs;
@@ -54,6 +60,8 @@ public class Cursus extends BaseObservable implements Serializable {
         this.mListEc = listEc;
         this.mListMe = listMe;
         this.mListHt = listHt;
+        this.mSt09 = st09;
+        this.mSt10 = st10;
     }
 
     public boolean isNpml() {
@@ -62,6 +70,22 @@ public class Cursus extends BaseObservable implements Serializable {
 
     public void setNpml(boolean npml) {
         this.mNpml = npml;
+    }
+
+    public boolean isSt09() {
+        return mSt09;
+    }
+
+    public void setSt09(boolean st09) {
+        this.mSt09 = st09;
+    }
+
+    public boolean isSt10() {
+        return mSt10;
+    }
+
+    public void setSt10(boolean st10) {
+        this.mSt10 = st10;
     }
 
     public String getIdentifier(){

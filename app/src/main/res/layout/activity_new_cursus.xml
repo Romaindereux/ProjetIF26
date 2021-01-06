@@ -275,7 +275,7 @@
 
 
 
-
+        <!-- NPML-->
         <TextView
             android:id="@+id/nca_tv_npml"
             android:layout_width="match_parent"
@@ -301,6 +301,49 @@
             app:layout_constraintTop_toBottomOf="@+id/nca_tv_npml"
             tools:ignore="MissingConstraints" />
 
+        <!-- Internship -->
+
+        <TextView
+            android:id="@+id/nca_tv_internship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/stages"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/nca_sw_npml"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="7dp" />
+
+        <CheckBox
+            android:id="@+id/nca_cb_st09"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/st09"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nca_tv_internship"
+            tools:ignore="MissingConstraints"
+            android:onClick="@{() -> newCursusActivity.onChechboxClicked(`nca_cb_st09`)}"/>
+
+
+        <CheckBox
+            android:id="@+id/nca_cb_st10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="100dp"
+            android:text="@string/st10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/nca_cb_st09"
+            app:layout_constraintTop_toBottomOf="@+id/nca_tv_internship"
+            tools:ignore="MissingConstraints"
+            android:onClick="@{() -> newCursusActivity.onChechboxClicked(`nca_cb_st10`)}"/>
+
         <Button
             android:id="@+id/button_save"
             android:layout_width="match_parent"
@@ -311,7 +354,7 @@
             android:onClick="@{() -> iAddCursus.inflateNewCursus()}"
             android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
-            app:layout_constraintTop_toBottomOf="@+id/nca_sw_npml"
+            app:layout_constraintTop_toBottomOf="@+id/nca_cb_st10"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="16dp" />
 

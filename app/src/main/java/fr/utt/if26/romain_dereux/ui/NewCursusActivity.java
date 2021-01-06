@@ -115,7 +115,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
 
 
-        Cursus cursus = new Cursus("", "", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false);
+        Cursus cursus = new Cursus("", "", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false, false, false);
         cursus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -420,6 +420,14 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         }
 
 
+    }
+
+    public void onChechboxClicked(String idCheckbox){
+        if (idCheckbox == "nca_cb_st09"){
+            binding.getCursus().setSt09(binding.ncaCbSt09.isChecked());
+        }else if(idCheckbox == "nca_cb_st10"){
+            binding.getCursus().setSt10(binding.ncaCbSt10.isChecked());
+        }
     }
 
 }
