@@ -15,10 +15,14 @@
             type="fr.utt.if26.romain_dereux.ui.NewCursusActivity" />
     </data>
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
 
 
@@ -49,6 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/et_cursus_identifier"
             tools:layout_editor_absoluteX="16dp" />
 
+        <!-- CS -->
         <TextView
             android:id="@+id/nca_tv_cs"
             android:layout_width="match_parent"
@@ -92,6 +97,53 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner_cs"
             tools:ignore="MissingConstraints" />
 
+        <!-- TM -->
+        <TextView
+            android:id="@+id/nca_tv_tm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/add_tm"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/nca_bt_new_cs"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="7dp" />
+
+        <ListView
+            android:id="@+id/lv_tm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/nca_tv_tm"/>
+
+        <Spinner
+            android:id="@+id/spinner_tm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/lv_tm"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Button
+            android:id="@+id/nca_bt_new_tm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> newCursusActivity.inflateNewUE(`TM`)}"
+            android:text="@string/add_new_tm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_tm"
+            tools:ignore="MissingConstraints" />
+
+
+
+
         <TextView
             android:id="@+id/nca_tv_npml"
             android:layout_width="match_parent"
@@ -102,7 +154,7 @@
             android:text="@string/npml"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/nca_bt_new_cs"
+            app:layout_constraintTop_toBottomOf="@+id/nca_bt_new_tm"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="7dp" />
 
@@ -132,4 +184,5 @@
             tools:layout_editor_absoluteX="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>

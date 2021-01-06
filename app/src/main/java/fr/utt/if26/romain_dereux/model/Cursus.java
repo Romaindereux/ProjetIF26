@@ -30,13 +30,17 @@ public class Cursus extends BaseObservable implements Serializable {
     @ColumnInfo(name = "listCs")
     private ArrayList<String> mListCs;
 
+    @ColumnInfo(name = "listTm")
+    private ArrayList<String> mListTm;
+
     @ColumnInfo(name="npml")
     private boolean mNpml = false;
 
-    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, boolean npml){
+    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm, boolean npml){
         this.mIdentifier = identifier;
         this.mBranche = branche;
         this.mListCs = listCs;
+        this.mListTm = listTm;
         this.mNpml = npml;
     }
 
@@ -82,6 +86,14 @@ public class Cursus extends BaseObservable implements Serializable {
 
     public void setListCs(ArrayList<String> mListCs) {
         this.mListCs = mListCs;
+    }
+
+    public ArrayList<String> getListTm() {
+        return mListTm;
+    }
+
+    public void setListTm(ArrayList<String> mListTm) {
+        this.mListTm = mListTm;
     }
 
 }

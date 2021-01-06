@@ -66,7 +66,7 @@ public class DialogNewUE extends DialogFragment {
             UE ue = new UE(sigleInput, branche, category, creditInput);
             ueViewModel.insert(ue);
             NewCursusActivity newCursusActivity = (NewCursusActivity) getActivity();
-            newCursusActivity.addUE(sigleInput);
+            newCursusActivity.addUE(sigleInput, category);
 
 
 
