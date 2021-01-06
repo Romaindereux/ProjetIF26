@@ -38,6 +38,7 @@ public class DialogNewUE extends DialogFragment {
     private String category;
     private String branche;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
@@ -68,9 +69,7 @@ public class DialogNewUE extends DialogFragment {
             newCursusActivity.addUE(sigleInput);
 
 
-//            ((NewCursusActivity)getActivity()).sigleDB = sigleInput;
-//            ((NewCursusActivity)getActivity()).creditDB = creditInput;
-            //TODO Send the sigle(pk) to the activity and display it
+
         }
         getDialog().dismiss();
     }

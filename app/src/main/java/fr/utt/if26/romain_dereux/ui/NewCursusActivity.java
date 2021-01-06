@@ -1,8 +1,10 @@
 package fr.utt.if26.romain_dereux.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +20,7 @@ import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -71,6 +74,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_cursus);
+        Log.d(TAG, "onCreate");
 
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
 
@@ -85,12 +89,11 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
             public void onPropertyChanged(Observable sender, int propertyId) {
                 String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
                 Log.d(TAG, branche);
-                //TODO: getUE FROM BRANCHE AND ONLY CS
                 Log.d(TAG, binding.ncaSpinnerBranche.getSelectedItem().toString());
+                listCs.clear();
                 ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
-                        listCs.clear();
                         listCsSigle.clear();
                         for(UE ue: ues){
                             listCsSigle.add(ue.getSigle());
@@ -115,7 +118,6 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         ueViewModel.getUEByBrancheAndCategory(branche, "CS").observe(lifecycleOwner, new Observer<List<UE>>() {
             @Override
             public void onChanged(List<UE> ues) {
-                listCs.clear();
                 listCsSigle.clear();
                 for(UE ue: ues){
                     listCsSigle.add(ue.getSigle());
@@ -160,6 +162,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     }
 
 
+
     @Override
     public void inflateNewCursus(){
         Intent replyIntent = new Intent();
@@ -175,12 +178,16 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     }
 
     public void inflateNewUE(String category){
+
         Toast.makeText(this, "New cs", Toast.LENGTH_LONG).show();
         DialogNewUE dialogNewUE = new DialogNewUE();
         dialogNewUE.setCategory(category);
         String branche = getResources().getStringArray(R.array.branches_array)[binding.getCursus().getBrancheID()];
         dialogNewUE.setBranche(branche);
         dialogNewUE.show(getSupportFragmentManager(), "new cs");
+
+
+
     }
 
     public void addUE(String sigle){
