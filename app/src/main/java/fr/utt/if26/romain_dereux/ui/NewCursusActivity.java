@@ -29,9 +29,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,9 +44,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     public static final String TAG = "NewCursusActivity";
 
-    public static final String EXTRA_REPLY_ID = "identifier";
     public static final String EXTRA_REPLY_BRANCHE = "branche";
-    public static final String EXTRA_REPLY_LIST_CS = "listcs";
+    public static final String EXTRA_REPLY_CURSUS = "cursus";
     private ActivityNewCursusBinding binding;
 
     public String sigleDB;
@@ -59,6 +60,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     private ListView listViewCS;
     private ArrayList<String> listCs;
     private ArrayAdapter<String> listCSAdapter;
+
+    private Switch switchNpml;
 
     LifecycleOwner lifecycleOwner = this;
 
@@ -76,7 +79,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         spinnerAdapterCs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerCs.setAdapter(spinnerAdapterCs);
 
-        Cursus cursus = new Cursus("", "", new ArrayList<>());
+        Cursus cursus = new Cursus("", "", new ArrayList<>(), false);
         cursus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -143,18 +146,30 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
             }
         });
 
+        /* On check the switch npml */
+        switchNpml = binding.ncaSwNpml;
+        switchNpml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                binding.getCursus().setNpml(b);
+                Log.d(TAG, String.valueOf(b));
+
+            }
+        });
+
     }
 
 
     @Override
     public void inflateNewCursus(){
         Intent replyIntent = new Intent();
-        String identifier = binding.getCursus().getIdentifier();
+        Cursus cursus = binding.getCursus();
+        replyIntent.putExtra(EXTRA_REPLY_CURSUS, cursus);
+
         int brancheID = binding.getCursus().getBrancheID();
         String branche = getResources().getStringArray(R.array.branches_array)[brancheID];
-        replyIntent.putExtra(EXTRA_REPLY_ID, identifier);
         replyIntent.putExtra(EXTRA_REPLY_BRANCHE, branche);
-        replyIntent.putExtra(EXTRA_REPLY_LIST_CS, listCs);
+
         setResult(RESULT_OK, replyIntent);
         finish();
     }

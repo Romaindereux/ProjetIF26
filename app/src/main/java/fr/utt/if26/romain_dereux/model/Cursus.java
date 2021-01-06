@@ -1,5 +1,6 @@
 package fr.utt.if26.romain_dereux.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,7 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = "cursus_table")
-public class Cursus extends BaseObservable {
+public class Cursus extends BaseObservable implements Serializable {
 
     private int brancheID;
 
@@ -29,11 +30,24 @@ public class Cursus extends BaseObservable {
     @ColumnInfo(name = "listCs")
     private ArrayList<String> mListCs;
 
-    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs){
+    @ColumnInfo(name="npml")
+    private boolean mNpml = false;
+
+    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, boolean npml){
         this.mIdentifier = identifier;
         this.mBranche = branche;
         this.mListCs = listCs;
+        this.mNpml = npml;
     }
+
+    public boolean isNpml() {
+        return mNpml;
+    }
+
+    public void setNpml(boolean npml) {
+        this.mNpml = npml;
+    }
+
     public String getIdentifier(){
         return this.mIdentifier;
     }

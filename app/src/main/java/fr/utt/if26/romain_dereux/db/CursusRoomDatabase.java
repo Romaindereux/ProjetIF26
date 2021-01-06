@@ -17,7 +17,7 @@ import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 
-@Database(entities = {Cursus.class, UE.class}, version = 4, exportSchema = false)
+@Database(entities = {Cursus.class, UE.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class CursusRoomDatabase extends RoomDatabase {
 
@@ -52,9 +52,9 @@ public abstract class CursusRoomDatabase extends RoomDatabase {
                 CursusDao dao = INSTANCE.cursusDao();
                 dao.deleteAll();
 
-                Cursus cursus = new Cursus("cursus1", "ISI", new ArrayList<>());
+                Cursus cursus = new Cursus("cursus1", "ISI", new ArrayList<>(), false);
                 dao.insert(cursus);
-                cursus = new Cursus("cursus2", "ISI", new ArrayList<>());
+                cursus = new Cursus("cursus2", "ISI", new ArrayList<>(), false);
                 dao.insert(cursus);
 
                 UEDao ueDao = INSTANCE.ueDao();

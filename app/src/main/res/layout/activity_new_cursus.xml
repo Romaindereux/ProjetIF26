@@ -81,7 +81,7 @@
             tools:layout_editor_absoluteX="16dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/nca_bt_new_cs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -90,6 +90,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_cs"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/nca_tv_npml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_padding"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/npml"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/nca_bt_new_cs"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="7dp" />
+
+        <Switch
+            android:id="@+id/nca_sw_npml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/npml_valide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nca_tv_npml"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -102,7 +127,7 @@
             android:onClick="@{() -> iAddCursus.inflateNewCursus()}"
             android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/nca_sw_npml"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="16dp" />
 
