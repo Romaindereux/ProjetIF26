@@ -37,4 +37,7 @@ public class UERepository {
             ueDao.insert(ue);
         });
     }
+    public LiveData<List<UE>> getUEBySigle(String sigle){
+        return ueDao.getUEBySigle(sigle);
+    }
 }

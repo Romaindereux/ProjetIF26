@@ -28,6 +28,9 @@ public interface UEDao {
     @Query("SELECT * FROM ue_table WHERE branche = :branche AND category = :category")
     LiveData<List<UE>> getUEByBrancheAndCategory(String branche, String category);
 
+    @Query("SELECT * FROM ue_table WHERE sigle = :sigle")
+    LiveData<List<UE>> getUEBySigle(String sigle);
+
     //TODO Create delete by sigle
     //TODO Create Select by sigle
     //TODO Create Select by category

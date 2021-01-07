@@ -17,7 +17,6 @@ import fr.utt.if26.romain_dereux.databinding.ActivityNewCursusBinding;
 import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
-import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 

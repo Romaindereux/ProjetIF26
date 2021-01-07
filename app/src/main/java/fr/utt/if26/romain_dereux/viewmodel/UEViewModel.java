@@ -32,5 +32,9 @@ public class UEViewModel extends AndroidViewModel {
         return mRepository.getUEByBrancheAndCategory(branche, category);
     }
 
+    public LiveData<List<UE>> getUEBySigle(String sigle){
+        return mRepository.getUEBySigle(sigle);
+    }
+
     public void insert(UE ue) { mRepository.insert(ue); }
 }
