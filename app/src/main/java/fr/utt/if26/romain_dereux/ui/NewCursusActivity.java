@@ -386,7 +386,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     }
 
     public void addUE(String sigle, String category){
-        Toast.makeText(getBaseContext(), ""+ sigle, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), ""+ sigle, Toast.LENGTH_LONG).show();
         if (category == "CS"){
             Log.d(TAG, "CS");
             listCs.add(sigle);

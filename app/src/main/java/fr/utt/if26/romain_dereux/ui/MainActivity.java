@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import fr.utt.if26.romain_dereux.MyApp;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.ActivityMainBinding;
+import fr.utt.if26.romain_dereux.databinding.RecyclerviewCursusItemBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.ui.adapter.CursusListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
@@ -28,7 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListItemClickListener{
 
     private CursusViewModel cursusViewModel;
     public static final int NEW_CURSUS_ACTIVITY_REQUEST_CODE = 1;
@@ -45,11 +47,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
 
+
+
         RecyclerView recyclerView = binding.recyclerview;
-        final CursusListAdapter adapter = new CursusListAdapter(new CursusListAdapter.CursusDiff());
+        final CursusListAdapter adapter = new CursusListAdapter(new CursusListAdapter.CursusDiff(), this);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
 
@@ -86,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
+
+    @Override
+    public void onListItemClick(int position) {
+        Toast.makeText(this, cursusViewModel.getCursus(position).getIdentifier(), Toast.LENGTH_LONG).show();
+
+
+    }
+
 
 
     /**
@@ -131,5 +145,6 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 
 }

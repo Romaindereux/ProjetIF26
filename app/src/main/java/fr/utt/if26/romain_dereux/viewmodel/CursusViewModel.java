@@ -23,5 +23,9 @@ public class CursusViewModel extends AndroidViewModel {
 
     public LiveData<List<Cursus>> getAllCursus() { return mAllCursus; }
 
+    public Cursus getCursus(int position){
+        return mAllCursus.getValue().get(position);
+    }
+
     public void insert(Cursus cursus) { mRepository.insert(cursus); }
 }
