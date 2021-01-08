@@ -15,6 +15,7 @@
             type="fr.utt.if26.romain_dereux.ui.NewCursusActivity" />
     </data>
 
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -22,7 +23,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
 
 
@@ -357,6 +357,7 @@
             app:layout_constraintTop_toBottomOf="@+id/nca_cb_st10"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="16dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

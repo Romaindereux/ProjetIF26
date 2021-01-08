@@ -2,6 +2,7 @@ package fr.utt.if26.romain_dereux.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.fragment.app.DialogFragment;
@@ -23,11 +24,13 @@ import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -72,14 +75,15 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     LifecycleOwner lifecycleOwner = this;
 
 
-    private int check = 0;
+    private int check = 0, checkTm=0, checkMe = 0, checkHt=0, checkEc=0;
 
+    private Toolbar mToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_cursus);
+
 
 
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
@@ -150,7 +154,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                         Utility.setListViewHeightBasedOnChildren(listViewTM);
                     }
                 });
-                ueViewModel.getUEByBrancheAndCategory(branche, "EC").observe(lifecycleOwner, new Observer<List<UE>>() {
+                ueViewModel.getUEByCategory("EC").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
                         listEcSigle.clear();
@@ -162,7 +166,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                         Utility.setListViewHeightBasedOnChildren(listViewEC);
                     }
                 });
-                ueViewModel.getUEByBrancheAndCategory(branche, "ME").observe(lifecycleOwner, new Observer<List<UE>>() {
+                ueViewModel.getUEByCategory("ME").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
                         listMeSigle.clear();
@@ -174,7 +178,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                         Utility.setListViewHeightBasedOnChildren(listViewME);
                     }
                 });
-                ueViewModel.getUEByBrancheAndCategory(branche, "HT").observe(lifecycleOwner, new Observer<List<UE>>() {
+                ueViewModel.getUEByCategory("HT").observe(lifecycleOwner, new Observer<List<UE>>() {
                     @Override
                     public void onChanged(List<UE> ues) {
                         listHtSigle.clear();
@@ -226,7 +230,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 Utility.setListViewHeightBasedOnChildren(listViewTM);
             }
         });
-        ueViewModel.getUEByBrancheAndCategory(branche, "EC").observe(lifecycleOwner, new Observer<List<UE>>() {
+        ueViewModel.getUEByCategory("EC").observe(lifecycleOwner, new Observer<List<UE>>() {
             @Override
             public void onChanged(List<UE> ues) {
                 listEcSigle.clear();
@@ -238,7 +242,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 Utility.setListViewHeightBasedOnChildren(listViewEC);
             }
         });
-        ueViewModel.getUEByBrancheAndCategory(branche, "ME").observe(lifecycleOwner, new Observer<List<UE>>() {
+        ueViewModel.getUEByCategory("ME").observe(lifecycleOwner, new Observer<List<UE>>() {
             @Override
             public void onChanged(List<UE> ues) {
                 listMeSigle.clear();
@@ -250,7 +254,7 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                 Utility.setListViewHeightBasedOnChildren(listViewME);
             }
         });
-        ueViewModel.getUEByBrancheAndCategory(branche, "HT").observe(lifecycleOwner, new Observer<List<UE>>() {
+        ueViewModel.getUEByCategory( "HT").observe(lifecycleOwner, new Observer<List<UE>>() {
             @Override
             public void onChanged(List<UE> ues) {
                 listHtSigle.clear();
@@ -306,7 +310,6 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
                     addUE(selecteditem, "CS");
                     Log.d(TAG,"spinner clicked");
                 }
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -318,8 +321,10 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         binding.spinnerTm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecteditem =  adapterView.getItemAtPosition(i).toString();
-                addUE(selecteditem, "TM");
+                if(++checkTm > 1){
+                    String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                    addUE(selecteditem, "TM");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -328,8 +333,10 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         binding.spinnerEc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecteditem =  adapterView.getItemAtPosition(i).toString();
-                addUE(selecteditem, "EC");
+                if(++checkEc > 1) {
+                    String selecteditem = adapterView.getItemAtPosition(i).toString();
+                    addUE(selecteditem, "EC");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -338,8 +345,10 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         binding.spinnerMe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecteditem =  adapterView.getItemAtPosition(i).toString();
-                addUE(selecteditem, "ME");
+                if(++checkMe > 1) {
+                    String selecteditem = adapterView.getItemAtPosition(i).toString();
+                    addUE(selecteditem, "ME");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -348,8 +357,10 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         binding.spinnerHt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecteditem =  adapterView.getItemAtPosition(i).toString();
-                addUE(selecteditem, "HT");
+                if(++checkHt > 1) {
+                    String selecteditem = adapterView.getItemAtPosition(i).toString();
+                    addUE(selecteditem, "HT");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -365,8 +376,31 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
             }
         });
+
+        setListEventHandling();
     }
 
+
+    public void setListEventHandling(){
+        setLongClickListenerList(listViewCS, listCs, listCSAdapter);
+        setLongClickListenerList(listViewTM, listTm, listTMAdapter);
+        setLongClickListenerList(listViewME, listMe, listMEAdapter);
+        setLongClickListenerList(listViewHT, listHt, listHTAdapter);
+        setLongClickListenerList(listViewEC, listEc, listECAdapter);
+    }
+
+
+    public void setLongClickListenerList(ListView listView, List<String> list, ArrayAdapter<String> adapter){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(NewCursusActivity.this, list.get(i), Toast.LENGTH_SHORT).show();
+                adapter.remove(list.get(i));
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+    }
 
 
     @Override
