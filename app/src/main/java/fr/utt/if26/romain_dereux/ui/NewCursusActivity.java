@@ -72,6 +72,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     LifecycleOwner lifecycleOwner = this;
 
 
+    private int check = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_cursus);
 
-        ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
 
+        ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
         listCsSigle = new ArrayList<>();
         listTmSigle = new ArrayList<>();
         listEcSigle = new ArrayList<>();
@@ -293,16 +295,25 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
         listHTAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listHt);
         listViewHT.setAdapter(listHTAdapter);
 
+
         /* On click on the cs spinner */
+
         binding.spinnerCs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selecteditem =  adapterView.getItemAtPosition(i).toString();
-                addUE(selecteditem, "CS");
+                if(++check > 1){
+                    String selecteditem =  adapterView.getItemAtPosition(i).toString();
+                    addUE(selecteditem, "CS");
+                    Log.d(TAG,"spinner clicked");
+                }
+
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d(TAG,"spinner empty clicked");
+            }
         });
+
         /* On click on the tm spinner */
         binding.spinnerTm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -384,42 +395,40 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     }
 
+    /**
+     * Fonction adding an UE to the corresponding list and then binding the list to the listView.
+     * @param sigle the sigle of the UE to add
+     * @param category the category of the UE: CS, TM, EC, ME or HT
+     */
     public void addUE(String sigle, String category){
-        //Toast.makeText(getBaseContext(), ""+ sigle, Toast.LENGTH_LONG).show();
-        if (category == "CS"){
-            Log.d(TAG, "CS");
+        if (category == "CS" && ! listCs.contains(sigle)){
             listCs.add(sigle);
-
             binding.getCursus().setListCs(listCs);
             listCSAdapter.notifyDataSetChanged();
-        }else if (category == "TM"){
-            Log.d(TAG, "TM");
+            Utility.setListViewHeightBasedOnChildren(listViewCS);
+        }else if (category == "TM"&& ! listTm.contains(sigle)){
             listTm.add(sigle);
-
             binding.getCursus().setListTm(listTm);
             listTMAdapter.notifyDataSetChanged();
-        }else if (category == "EC"){
-            Log.d(TAG, "EC");
+            Utility.setListViewHeightBasedOnChildren(listViewTM);
+        }else if (category == "EC" && ! listEc.contains(sigle)){
             listEc.add(sigle);
-
             binding.getCursus().setListEc(listEc);
             listECAdapter.notifyDataSetChanged();
-        }else if (category == "ME"){
-            Log.d(TAG, "ME");
+            Utility.setListViewHeightBasedOnChildren(listViewEC);
+        }else if (category == "ME" && ! listMe.contains(sigle)){
             listMe.add(sigle);
-
             binding.getCursus().setListMe(listMe);
             listMEAdapter.notifyDataSetChanged();
-        }else if (category == "HT"){
-            Log.d(TAG, "HT");
+            Utility.setListViewHeightBasedOnChildren(listViewME);
+        }else if (category == "HT" && ! listHt.contains(sigle)){
             listHt.add(sigle);
-
             binding.getCursus().setListHt(listHt);
             listHTAdapter.notifyDataSetChanged();
+            Utility.setListViewHeightBasedOnChildren(listViewTM);
         }
-
-
     }
+
 
     public void onChechboxClicked(String idCheckbox){
         if (idCheckbox == "nca_cb_st09"){

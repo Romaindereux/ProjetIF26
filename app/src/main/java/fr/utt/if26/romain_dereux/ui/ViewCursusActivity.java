@@ -63,7 +63,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 binding.setSumCs(String.valueOf(sumCs).concat(" / 24"));
             } else if (category == "TM") {
                 sumTm += ue.getCredit();
-                binding.setSumTm(String.valueOf(sumCs).concat(" / 24"));
+                binding.setSumTm(String.valueOf(sumTm).concat(" / 24"));
             } else if (category == "ME") {
                 sumMe += ue.getCredit();
                 binding.setSumMe(String.valueOf(sumMe).concat(" / 4"));
