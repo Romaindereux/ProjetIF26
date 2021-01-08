@@ -2,6 +2,7 @@ package fr.utt.if26.romain_dereux;
 
 import android.app.Application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -37,7 +38,7 @@ public class UERepository {
             ueDao.insert(ue);
         });
     }
-    public LiveData<List<UE>> getUEBySigle(String sigle){
-        return ueDao.getUEBySigle(sigle);
+    public ArrayList<UE> getUEBySigle(String sigle){
+        return (ArrayList<UE>) ueDao.getUEBySigle(sigle);
     }
 }

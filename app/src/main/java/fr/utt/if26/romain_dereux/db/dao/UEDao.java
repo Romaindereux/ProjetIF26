@@ -1,5 +1,6 @@
 package fr.utt.if26.romain_dereux.db.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -29,7 +30,7 @@ public interface UEDao {
     LiveData<List<UE>> getUEByBrancheAndCategory(String branche, String category);
 
     @Query("SELECT * FROM ue_table WHERE sigle = :sigle")
-    LiveData<List<UE>> getUEBySigle(String sigle);
+    List<UE> getUEBySigle(String sigle);
 
     //TODO Create delete by sigle
     //TODO Create Select by sigle

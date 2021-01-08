@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
 
     @Override
     public void onListItemClick(int position) {
-        Toast.makeText(this, cursusViewModel.getCursus(position).getIdentifier(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, ViewCursusActivity.class);
         intent.putExtra("cursus", cursusViewModel.getCursus(position));

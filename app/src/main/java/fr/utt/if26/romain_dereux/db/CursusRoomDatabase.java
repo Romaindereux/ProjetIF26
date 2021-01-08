@@ -32,7 +32,7 @@ public abstract class CursusRoomDatabase extends RoomDatabase {
         if(INSTANCE == null){
             synchronized (CursusRoomDatabase.class){
                 if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CursusRoomDatabase.class, "cursus_database").fallbackToDestructiveMigration().addCallback(sRoomDatabaseCallback).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CursusRoomDatabase.class, "cursus_database").fallbackToDestructiveMigration().addCallback(sRoomDatabaseCallback).allowMainThreadQueries().build();
                 }
             }
         }

@@ -2,6 +2,8 @@ package fr.utt.if26.romain_dereux.viewmodel;
 
 import android.app.Application;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -32,7 +34,7 @@ public class UEViewModel extends AndroidViewModel {
         return mRepository.getUEByBrancheAndCategory(branche, category);
     }
 
-    public LiveData<List<UE>> getUEBySigle(String sigle){
+    public ArrayList<UE> getUEBySigle(String sigle){
         return mRepository.getUEBySigle(sigle);
     }
 
