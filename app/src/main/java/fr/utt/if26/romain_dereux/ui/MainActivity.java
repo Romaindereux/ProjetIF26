@@ -1,5 +1,6 @@
 package fr.utt.if26.romain_dereux.ui;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
     private ActivityMainBinding binding;
     private static final String KEY_TEXT_CREATE = "key_text_create";
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_main, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        
+        /*  Toolbar */
+        //setSupportActionBar(binding.myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("TETS");
+
+
 
 
 
