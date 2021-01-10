@@ -2,12 +2,15 @@ package fr.utt.if26.romain_dereux.viewmodel;
 
 import android.app.Application;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import fr.utt.if26.romain_dereux.CursusRepository;
 import fr.utt.if26.romain_dereux.model.Cursus;
+import fr.utt.if26.romain_dereux.model.UE;
 
 public class CursusViewModel extends AndroidViewModel {
 
@@ -31,5 +34,45 @@ public class CursusViewModel extends AndroidViewModel {
 
     public void deleteFromIdentifier(String identifier){
         mRepository.deleteFromIdentifier(identifier);
+    }
+
+    public List<String> getListCs(String identifier){
+        return mRepository.getListCs(identifier);
+    }
+
+    public void updateListCs(String listUE, String id){
+        mRepository.updateListCs(listUE, id);
+    }
+
+    public List<String> getListTm(String identifier){
+        return mRepository.getListTm(identifier);
+    }
+
+    public void updateListTm(String listUE, String id){
+        mRepository.updateListTm(listUE, id);
+    }
+
+    public List<String> getListEc(String identifier){
+        return mRepository.getListEc(identifier);
+    }
+
+    public void updateListEc(String listUE, String id){
+        mRepository.updateListEc(listUE, id);
+    }
+
+    public List<String> getListMe(String identifier){
+        return mRepository.getListMe(identifier);
+    }
+
+    public void updateListMe(String listUE, String id){
+        mRepository.updateListMe(listUE, id);
+    }
+
+    public List<String> getListHt(String identifier){
+        return mRepository.getListHt(identifier);
+    }
+
+    public void updateListHt(String listUE, String id){
+        mRepository.updateListHt(listUE, id);
     }
 }

@@ -70,4 +70,9 @@ public class UE extends BaseObservable {
     public void setCredit(int credit) {
         this.credit = credit;
     }
+
+    @Override
+    public String toString() {
+        return  sigle + " - " + branche + " - " + category + " - " + credit ;
+    }
 }

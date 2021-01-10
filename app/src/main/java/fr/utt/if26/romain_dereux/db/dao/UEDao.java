@@ -32,6 +32,12 @@ public interface UEDao {
     @Query("SELECT * FROM ue_table WHERE category = :category")
     LiveData<List<UE>> getUEByCategory(String category);
 
+    @Query("SELECT * FROM ue_table WHERE branche = :branche")
+    LiveData<List<UE>> getUEByBranche(String branche);
+
+    @Query("SELECT * FROM ue_table WHERE (branche = :branche) OR (category = 'EC' OR category = 'ME' OR category = 'HT')")
+    LiveData<List<UE>> getUEAvalaibleForBranche(String branche);
+
     @Query("SELECT * FROM ue_table WHERE sigle = :sigle")
     List<UE> getUEBySigle(String sigle);
 

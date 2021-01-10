@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import fr.utt.if26.romain_dereux.R;
+import fr.utt.if26.romain_dereux.Utility;
 import fr.utt.if26.romain_dereux.databinding.ActivityViewCursusBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
@@ -53,10 +54,45 @@ public class ViewCursusActivity extends AppCompatActivity {
                 return true;
             case R.id.action_add_ue:
                 DialogAddUE dialogAddUE = new DialogAddUE();
+                String branche = cursus.getBranche();
+                dialogAddUE.setBranche(branche);
+                dialogAddUE.setIdentifier(cursus.getIdentifier());
                 dialogAddUE.show(getSupportFragmentManager(), "new ue");
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshData(UE ue){
+        ArrayList<String> list;
+        switch (ue.getCategory()){
+            case "CS":
+                list = cursus.getListCs();
+                list.add(ue.getSigle());
+                bindListUE(list, binding.listCs, "CS");
+                break;
+            case "TM":
+                list = cursus.getListTm();
+                list.add(ue.getSigle());
+                bindListUE(list, binding.listTm, "TM");
+                break;
+            case "EC":
+                list = cursus.getListEc();
+                list.add(ue.getSigle());
+                bindListUE(list, binding.listEc, "EC");
+                break;
+            case "ME":
+                list = cursus.getListMe();
+                list.add(ue.getSigle());
+                bindListUE(list, binding.listMe, "ME");
+                break;
+            case "HT":
+                list = cursus.getListHt();
+                list.add(ue.getSigle());
+                bindListUE(list, binding.listHt, "HT");
+                break;
+        }
+
     }
 
     @Override
@@ -87,11 +123,19 @@ public class ViewCursusActivity extends AppCompatActivity {
         binding.setNpml(cursus.isNpml());
 
     }
+    public void renitializeSums(){
+        sumCs=0;
+        sumTm=0;
+        sumHt=0;
+        sumMe=0;
+        sumEc=0;
+    }
 
     public void bindListUE(ArrayList<String> listString, ListView listToBind, String category) {
         ListView listView = listToBind;
         ArrayList<UE> listUE = new ArrayList<>();
         Log.d(TAG, listString.toString());
+        renitializeSums();
         for (String s : listString) {
             Log.d(TAG, s);
             UE ue = ueViewModel.getUEBySigle(s).get(0);
@@ -116,39 +160,10 @@ public class ViewCursusActivity extends AppCompatActivity {
             binding.setSumMeHt(String.valueOf(sumMe + sumHt).concat(" / 16"));
             binding.setSumTotal(String.valueOf(sumCs + sumTm + sumMe + sumHt + sumEc).concat(" / 180"));
 
-//            ueViewModel.getUEBySigle(s).observe(this, new Observer<List<UE>>() {
-//                @Override
-//                public void onChanged(List<UE> ues) {
-//                    Log.d(TAG, "ici");
-//                    for(UE ue: ues){
-//                        listUE.add(ue);
-//                        if (category == "CS"){
-//                            sumCs += ue.getCredit();
-//                            binding.setSumCs(String.valueOf(sumCs).concat(" / 24"));
-//                        }else if (category == "TM"){
-//                            sumTm += ue.getCredit();
-//                            binding.setSumTm(String.valueOf(sumCs).concat(" / 24"));
-//                        }else if (category == "ME"){
-//                            sumMe += ue.getCredit();
-//                            binding.setSumMe(String.valueOf(sumMe).concat(" / 4"));
-//                        }else if (category == "HT"){
-//                            sumHt += ue.getCredit();
-//                            binding.setSumHt(String.valueOf(sumHt).concat(" / 4"));
-//                        }else if (category == "EC"){
-//                            sumEc += ue.getCredit();
-//                            binding.setSumEc(String.valueOf(sumEc).concat(" / 12"));
-//                        }
-//
-//
-//                    }
-//                    binding.setSumCsTm(String.valueOf(sumCs + sumTm).concat(" / 84"));
-//                    binding.setSumMeHt(String.valueOf(sumMe + sumHt).concat(" / 16"));
-//                    binding.setSumTotal(String.valueOf(sumCs + sumTm + sumMe + sumHt + sumEc).concat(" / 180"));
-//                }
-//            });
         }
         Log.d(TAG, listUE.toString());
         adapter = new UEListAdapter(this, listUE);
         listView.setAdapter(adapter);
+        Utility.setListViewHeightBasedOnChildren(listToBind);
     }
 }

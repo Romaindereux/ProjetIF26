@@ -38,6 +38,14 @@ public class UEViewModel extends AndroidViewModel {
         return mRepository.getUEByCategory(category);
     }
 
+    public LiveData<List<UE>> getUEByBranche(String branche){
+        return mRepository.getUEByBranche(branche);
+    }
+
+    public LiveData<List<UE>> getUEAvalaibleForBranche(String branche){
+        return mRepository.getUEByBranche(branche);
+    }
+
     public ArrayList<UE> getUEBySigle(String sigle){
         return mRepository.getUEBySigle(sigle);
     }

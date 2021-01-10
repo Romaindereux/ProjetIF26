@@ -37,6 +37,14 @@ public class UERepository {
         return ueDao.getUEByCategory(category);
     }
 
+    public LiveData<List<UE>> getUEByBranche(String branche){
+        return ueDao.getUEByBranche(branche);
+    }
+
+    public LiveData<List<UE>> getUEAvalaibleForBranche(String branche){
+        return ueDao.getUEByBranche(branche);
+    }
+
     public void insert(UE ue){
         CursusRoomDatabase.databaseWriteExecutor.execute(() -> {
             ueDao.insert(ue);
