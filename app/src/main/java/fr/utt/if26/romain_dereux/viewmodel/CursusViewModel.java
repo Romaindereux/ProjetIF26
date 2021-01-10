@@ -28,4 +28,8 @@ public class CursusViewModel extends AndroidViewModel {
     }
 
     public void insert(Cursus cursus) { mRepository.insert(cursus); }
+
+    public void deleteFromIdentifier(String identifier){
+        mRepository.deleteFromIdentifier(identifier);
+    }
 }

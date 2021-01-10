@@ -1,22 +1,25 @@
 package fr.utt.if26.romain_dereux.ui;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.ActivityViewCursusBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
+import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewCursusActivity extends AppCompatActivity {
 
@@ -25,18 +28,53 @@ public class ViewCursusActivity extends AppCompatActivity {
     UEListAdapter adapter;
 
     private UEViewModel ueViewModel;
+    private CursusViewModel cursusViewModel;
 
     public static final String TAG = "ViewCursusActivity";
 
     private int sumCs=0,sumTm=0,sumMe=0,sumHt=0,sumEc=0;
 
+    private Cursus cursus;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_view_cursus, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_delete_cursus:
+                //DELETE cursus and close intent
+                String identifier = cursus.getIdentifier();
+                finish();
+                cursusViewModel.deleteFromIdentifier(identifier);
+                return true;
+            case R.id.action_add_ue:
+                DialogAddUE dialogAddUE = new DialogAddUE();
+                dialogAddUE.show(getSupportFragmentManager(), "new ue");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_cursus);
-        Cursus cursus = (Cursus) getIntent().getSerializableExtra("cursus");
+
+        /*  Toolbar */
+        ActionBar actionBar = getSupportActionBar();
+        cursus = (Cursus) getIntent().getSerializableExtra("cursus");
+        String title = getResources().getString(R.string.cursus);
+        actionBar.setTitle(title.concat(cursus.getIdentifier()));
+
+
+
 
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
+        cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
 
         bindListUE(cursus.getListCs(), binding.listCs, "CS");
         bindListUE(cursus.getListTm(), binding.listTm, "TM");

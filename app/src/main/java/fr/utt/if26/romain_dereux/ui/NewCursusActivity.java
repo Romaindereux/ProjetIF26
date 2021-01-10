@@ -1,6 +1,7 @@
 package fr.utt.if26.romain_dereux.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
@@ -83,6 +84,11 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_cursus);
+
+        /*  Toolbar */
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.creation_cursus);
 
 
 

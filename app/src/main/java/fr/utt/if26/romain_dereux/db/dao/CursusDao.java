@@ -17,6 +17,9 @@ public interface CursusDao {
     @Query("DELETE FROM cursus_table")
     void deleteAll();
 
+    @Query("DELETE FROM cursus_table WHERE identifier = :identifier")
+    void deleteFromIdentifier(String identifier);
+
     @Query("SELECT * FROM cursus_table ORDER BY identifier ASC")
     LiveData<List<Cursus>> getAlphabetizedCursus();
 }

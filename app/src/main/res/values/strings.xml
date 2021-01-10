@@ -25,4 +25,16 @@
     <string name="stages">Stages</string>
     <string name="st10">ST10</string>
     <string name="summary">Summary</string>
+
+
+    <string name="list_cursus">Liste des cursus</string>
+    <string name="visualization_cursus">Visualisation du cursus: </string>
+    <string name="creation_cursus">Création d\'un nouveau cursus</string>
+    <string name="cursus">Cursus: </string>
+    <string name="action_delete">Delete</string>
+    <string name="action_add">Add</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_existing_ue">Ajouter une UE existante</string>
+    <string name="add_new_ue">Ajouter une nouvelle UE</string>
 </resources>

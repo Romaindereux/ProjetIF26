@@ -23,6 +23,10 @@ public class CursusRepository {
     public LiveData<List<Cursus>> getAllCursus(){
         return mAllCursus;
     }
+
+    public void deleteFromIdentifier(String identifier){
+        cursusDao.deleteFromIdentifier(identifier);
+    }
     public void insert(Cursus cursus){
         CursusRoomDatabase.databaseWriteExecutor.execute(() -> {
             cursusDao.insert(cursus);

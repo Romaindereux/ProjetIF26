@@ -39,11 +39,7 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
     private ActivityMainBinding binding;
     private static final String KEY_TEXT_CREATE = "key_text_create";
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_main, menu);
-        return true;
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         setContentView(view);
         
         /*  Toolbar */
-        //setSupportActionBar(binding.myToolbar);
+
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("TETS");
+        actionBar.setTitle(R.string.list_cursus);
 
 
 

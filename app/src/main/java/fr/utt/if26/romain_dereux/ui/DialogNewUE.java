@@ -28,9 +28,6 @@ public class DialogNewUE extends DialogFragment {
     public static final String TAG = "DialogNewUE";
     private UEViewModel ueViewModel;
 
-    //TODO add data binding
-//    private EditText sigle, credit;
-//    private Button createButton, cancelButton;
 
     private DialogNewUeBinding binding;
 
