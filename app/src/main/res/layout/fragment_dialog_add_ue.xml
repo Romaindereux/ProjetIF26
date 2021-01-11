@@ -8,8 +8,14 @@
             name="dialogAddUe"
             type="fr.utt.if26.romain_dereux.ui.DialogAddUE" />
         <variable
-            name="ue"
-            type="fr.utt.if26.romain_dereux.model.UE" />
+            name="sigle"
+            type="String" />
+        <variable
+            name="category"
+            type="String" />
+        <variable
+            name="credit"
+            type="String" />
 
     </data>
 
@@ -55,30 +61,12 @@
             android:layout_marginRight="16dp"
             android:hint="Sigle..."
             android:inputType="textPersonName"
-            android:text="@={ue.sigle}"
+            android:text="@={sigle}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_new_ue"
             tools:ignore="MissingConstraints,UnknownId" />
 
-        <EditText
-            android:id="@+id/d_nue_et_branche"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/big_padding"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="Branche..."
-            android:inputType="textPersonName"
-            android:text="@={ue.branche}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_sigle"
-            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/d_nue_et_credit"
@@ -92,10 +80,10 @@
             android:layout_marginRight="16dp"
             android:hint="Crédit ..."
             android:inputType="textPersonName"
-            android:text="@={`` + ue.credit}"
+            android:text="@={credit}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_branche"
+            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_sigle"
             tools:ignore="MissingConstraints" />
 
         <EditText
@@ -110,7 +98,7 @@
             android:layout_marginRight="16dp"
             android:hint="Categorie ..."
             android:inputType="textPersonName"
-            android:text="@={ue.category}"
+            android:text="@={category}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +117,8 @@
             android:text="Créer Ue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/d_nue_bt_retour"
-            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_category" />
+            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_category"
+            android:onClick="@{() -> dialogAddUe.createUE()}"/>
 
         <Button
             android:id="@+id/d_nue_bt_retour"
@@ -140,6 +129,7 @@
             android:layout_marginTop="30dp"
             android:text="Retour"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_category" />
+            app:layout_constraintTop_toBottomOf="@+id/d_nue_et_category"
+            android:onClick="@{() -> dialogAddUe.cancelClick()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

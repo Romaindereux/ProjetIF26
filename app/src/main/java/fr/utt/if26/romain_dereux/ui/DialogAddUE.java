@@ -179,5 +179,18 @@ public class DialogAddUE extends DialogFragment {
         return ueViewModel.getUEAvalaibleForBranche(branche);
     }
 
+    public void cancelClick(){
+        getDialog().dismiss();
+    }
+
+    public void createUE(){
+        UE ue = new UE(binding.getSigle(), branche, binding.getCategory(), Integer.parseInt(binding.getCredit()));
+        ueViewModel.insert(ue);
+        addUeToDB(ue);
+        ViewCursusActivity viewCursusActivity = (ViewCursusActivity) getActivity();
+        viewCursusActivity.refreshData(ue);
+        getDialog().dismiss();
+    }
+
 
 }
