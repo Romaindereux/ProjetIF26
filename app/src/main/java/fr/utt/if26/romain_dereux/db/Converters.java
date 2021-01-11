@@ -28,7 +28,10 @@ public class Converters {
     public String writingStringFromList(ArrayList<String> list) {
         String genreIds = "";
         for (String i : list) {
-            genreIds += "," + i ;
+            genreIds += i + ",";
+        }
+        if (genreIds != null && genreIds.length() > 0) {
+            genreIds = genreIds.substring(0, genreIds.length() - 1);
         }
         return genreIds;
     }

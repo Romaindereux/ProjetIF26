@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.Utility;
 import fr.utt.if26.romain_dereux.databinding.ActivityViewCursusBinding;
+import fr.utt.if26.romain_dereux.db.Converters;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
@@ -18,11 +19,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ViewCursusActivity extends AppCompatActivity {
 
@@ -74,7 +81,88 @@ public class ViewCursusActivity extends AppCompatActivity {
         addOnCheckedListener(binding.cbVcaSt09, "ST09");
         addOnCheckedListener(binding.cbVcaSt10, "ST10");
 
+        setLongPressOnUe();
+
     }
+
+    public void setLongPressOnUe(){
+        setLongPress(binding.listCs, cursus.getListCs(), "CS");
+        setLongPress(binding.listTm, cursus.getListTm(), "TM");
+        setLongPress(binding.listEc, cursus.getListEc(), "EC");
+        setLongPress(binding.listMe, cursus.getListMe(), "ME");
+        setLongPress(binding.listHt, cursus.getListHt(), "HT");
+
+    }
+    public void setLongPress(ListView listView, ArrayList<String> list, String category){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                supprUEfromView(list.get(i), category);
+                return false;
+            }
+        });
+    }
+    public void supprUEfromView(String sigle, String category){
+        ArrayList<String> listUE;
+        Converters converters = new Converters();
+        String listString;
+        String[] listUEAdjust;
+        switch (category){
+            case "CS":
+                listUE =  (ArrayList<String>) cursusViewModel.getListCs(cursus.getIdentifier());
+                listUEAdjust = listUE.get(0).split(",");
+                listUE.clear();
+                Collections.addAll(listUE, listUEAdjust);
+                listUE.remove(sigle);
+                listString = converters.writingStringFromList((ArrayList<String>)listUE);
+                cursusViewModel.updateListCs(listString, cursus.getIdentifier());
+                bindListUE(listUE,binding.listCs, "CS");
+                break;
+            case "TM":
+                listUE = (ArrayList<String>) cursusViewModel.getListTm(cursus.getIdentifier());
+                listUEAdjust = listUE.get(0).split(",");
+                listUE.clear();
+                Collections.addAll(listUE, listUEAdjust);
+                listUE.remove(sigle);
+                listString = converters.writingStringFromList(listUE);
+                cursusViewModel.updateListTm(listString, cursus.getIdentifier());
+                bindListUE(listUE,binding.listTm, "TM");
+                break;
+            case "EC":
+                listUE = (ArrayList<String>) cursusViewModel.getListEc(cursus.getIdentifier());
+                listUEAdjust = listUE.get(0).split(",");
+                listUE.clear();
+                Collections.addAll(listUE, listUEAdjust);
+                listUE.remove(sigle);
+                listString = converters.writingStringFromList(listUE);
+                cursusViewModel.updateListEc(listString, cursus.getIdentifier());
+                bindListUE(listUE,binding.listEc, "EC");
+                break;
+            case "ME":
+                listUE = (ArrayList<String>) cursusViewModel.getListMe(cursus.getIdentifier());
+                listUEAdjust = listUE.get(0).split(",");
+                listUE.clear();
+                Collections.addAll(listUE, listUEAdjust);
+                listUE.remove(sigle);
+                listString = converters.writingStringFromList(listUE);
+                cursusViewModel.updateListMe(listString, cursus.getIdentifier());
+                bindListUE(listUE,binding.listMe, "ME");
+                break;
+            case "HT":
+                listUE = (ArrayList<String>) cursusViewModel.getListHt(cursus.getIdentifier());
+                listUEAdjust = listUE.get(0).split(",");
+                listUE.clear();
+                Collections.addAll(listUE, listUEAdjust);
+                listUE.remove(sigle);
+                listString = converters.writingStringFromList(listUE);
+                cursusViewModel.updateListHt(listString, cursus.getIdentifier());
+                bindListUE(listUE,binding.listHt, "HT");
+                break;
+        }
+    }
+
+
+
 
     public void addOnCheckedListener(CheckBox checkBox, String checkboxTitle){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

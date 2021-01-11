@@ -18,6 +18,7 @@ import fr.utt.if26.romain_dereux.model.UE;
  * Created by Romain on 28 décembre 2020
  * Contact me at romain.dereux@utt.fr
  *
+ * USELESS
  */
 
 public class UEListViewAdapter extends ArrayAdapter<UE> {
