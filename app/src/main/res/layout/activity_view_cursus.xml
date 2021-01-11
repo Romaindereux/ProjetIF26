@@ -205,22 +205,25 @@
                 android:orientation="vertical">
 
                 <CheckBox
+                    android:id="@+id/cb_vca_st09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/st09"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:checked="@{st09}"/>
                 <CheckBox
+                    android:id="@+id/cb_vca_st10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/st10"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:checked="@{st10}"/>
                 <CheckBox
+                    android:id="@+id/cb_vca_npml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/npml"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:checked="@{npml}"/>
 
 

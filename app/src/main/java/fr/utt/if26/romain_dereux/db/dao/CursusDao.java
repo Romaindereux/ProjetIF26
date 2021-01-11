@@ -56,5 +56,14 @@ public interface CursusDao {
     @Query("UPDATE cursus_table SET listHt = :listHt WHERE identifier = :identifier")
     void updateListHt(String listHt, String identifier);
 
+    @Query("UPDATE cursus_table SET npml = :npml WHERE identifier = :identifier")
+    void updateNpml(Boolean npml, String identifier);
+
+    @Query("UPDATE cursus_table SET st09 = :st09 WHERE identifier = :identifier")
+    void updateSt09(Boolean st09, String identifier);
+
+    @Query("UPDATE cursus_table SET st10 = :st10 WHERE identifier = :identifier")
+    void updateSt10(Boolean st10, String identifier);
+
 
 }

@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -52,6 +54,8 @@ public class ViewCursusActivity extends AppCompatActivity {
 
 
 
+
+
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
 
@@ -66,20 +70,57 @@ public class ViewCursusActivity extends AppCompatActivity {
         binding.setNpml(cursus.isNpml());
         binding.setBranche(cursus.getBranche());
 
+        addOnCheckedListener(binding.cbVcaNpml, "NPML");
+        addOnCheckedListener(binding.cbVcaSt09, "ST09");
+        addOnCheckedListener(binding.cbVcaSt10, "ST10");
+
     }
-    public void renitializeSums(){
-        sumCs=0;
-        sumTm=0;
-        sumHt=0;
-        sumMe=0;
-        sumEc=0;
+
+    public void addOnCheckedListener(CheckBox checkBox, String checkboxTitle){
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switch (checkboxTitle){
+                    case "NPML":
+                        //Change npml in db
+                        cursusViewModel.updateNpml(b, cursus.getIdentifier());
+                        break;
+                    case "ST09":
+                        cursusViewModel.updateSt09(b, cursus.getIdentifier());
+                        break;
+                    case "ST10":
+                        cursusViewModel.updateSt10(b, cursus.getIdentifier());
+                        break;
+                }
+            }
+        });
+    }
+    public void renitializeSums(String category){
+        switch (category){
+            case "CS":
+                sumCs = 0;
+                break;
+            case "TM":
+                sumTm = 0;
+                break;
+            case "EC":
+                sumEc = 0;
+                break;
+            case "ME":
+                sumMe = 0;
+                break;
+            case "HT":
+                sumHt = 0;
+                break;
+        }
+
     }
 
     public void bindListUE(ArrayList<String> listString, ListView listToBind, String category) {
         ListView listView = listToBind;
         ArrayList<UE> listUE = new ArrayList<>();
         Log.d(TAG, listString.toString());
-        renitializeSums();
+        renitializeSums(category);
         for (String s : listString) {
             Log.d(TAG, s);
             UE ue = ueViewModel.getUEBySigle(s).get(0);

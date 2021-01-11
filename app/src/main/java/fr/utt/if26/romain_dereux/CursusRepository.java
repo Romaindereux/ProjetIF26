@@ -76,4 +76,16 @@ public class CursusRepository {
         cursusDao.updateListHt(listUE, id);
     }
 
+    public void updateNpml(Boolean npml, String id){
+        cursusDao.updateNpml(npml, id);
+    }
+
+    public void updateSt09(Boolean st09, String id){
+        cursusDao.updateSt09(st09, id);
+    }
+
+    public void updateSt10(Boolean st10, String id){
+        cursusDao.updateSt10(st10, id);
+    }
+
 }
