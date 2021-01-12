@@ -41,51 +41,45 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
     private ActivityMainBinding binding;
     private static final String KEY_TEXT_CREATE = "key_text_create";
 
+    private static final String TAG = MainActivity.class.getName();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Use View Binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         
         /*  Toolbar */
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.list_cursus);
 
-
-
-
-
-
-        RecyclerView recyclerView = binding.recyclerview;
+        /* Creation of the recyclerView */
+        RecyclerView rvListCursus = binding.recyclerview;
         final CursusListAdapter adapter = new CursusListAdapter(new CursusListAdapter.CursusDiff(), this);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
+        rvListCursus.setAdapter(adapter);
+        rvListCursus.setLayoutManager(new LinearLayoutManager(this));
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
-
         cursusViewModel.getAllCursus().observe(this, cursus -> {
             adapter.submitList(cursus);
         });
 
 
+        /* Fab button Listener */
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NewCursusActivity.class);
                 startActivityForResult(intent, NEW_CURSUS_ACTIVITY_REQUEST_CODE);
                 createNotification(intent);
-
             }
         });
 
         createNotificationChannel();
+
 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,6 +106,34 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         intent.putExtra("cursus", cursusViewModel.getCursus(position));
         startActivity(intent);
 
+    }
+
+
+    /**
+     * Create the options menu
+     * @param menu Menu: menu with the option to view list ue
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_main, menu);
+        return true;
+    }
+
+    /**
+     * Start new activity when user click on the option
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_view_ue:
+                Intent intent = new Intent(this, ViewListUEActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -160,22 +182,7 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_view_ue:
-                Intent intent = new Intent(this, ViewListUEActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }

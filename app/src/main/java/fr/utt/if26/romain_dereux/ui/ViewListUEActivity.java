@@ -1,5 +1,6 @@
 package fr.utt.if26.romain_dereux.ui;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -29,6 +30,10 @@ public class ViewListUEActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*  Toolbar */
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Liste des Ues");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_list_ue);
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);

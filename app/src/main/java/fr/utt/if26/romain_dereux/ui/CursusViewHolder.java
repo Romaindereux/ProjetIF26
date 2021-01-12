@@ -1,5 +1,6 @@
 package fr.utt.if26.romain_dereux.ui;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class CursusViewHolder extends RecyclerView.ViewHolder implements View.On
 
         this.mListItemClickListener = listItemClickListener;
         this.itemView.setOnClickListener(this);
+        binding.circleValid.setColorFilter(Color.parseColor("#FF0000"));
     }
 
     public void bind(Cursus cursus) {
