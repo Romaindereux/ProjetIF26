@@ -20,7 +20,6 @@ import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 import fr.utt.if26.romain_dereux.ui.CursusViewHolder;
-import fr.utt.if26.romain_dereux.ui.UEViewHolder;
 
 /**
  * Created by Romain on 28 décembre 2020

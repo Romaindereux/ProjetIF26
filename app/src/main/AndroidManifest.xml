@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetIF26">
         <activity
+            android:name=".ui.ViewListUEActivity"
+            android:parentActivityName=".ui.MainActivity"/>
+        <activity
             android:name=".ui.ViewCursusActivity"
-            android:parentActivityName=".ui.MainActivity"
-        />
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait">

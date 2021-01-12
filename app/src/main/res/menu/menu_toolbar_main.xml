@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings_main"
-        android:icon="@drawable/ic_baseline_add_24"
-        android:title="Settings"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/action_view_ue"
+        android:title="List_ue"
+        app:showAsAction="never"/>
 </menu>

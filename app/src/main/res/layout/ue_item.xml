@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="ue"
+            type="fr.utt.if26.romain_dereux.model.UE" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_ue_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@{ue.branche}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/tv_ue_sigle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ue.sigle}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:maxLines="1"
+                android:layout_toStartOf="@id/tv_ue_credit"
+                android:layout_toLeftOf="@id/tv_ue_credit"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_ue_branche"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ue.branche}"
+                android:layout_below="@+id/tv_ue_sigle" />
+
+            <TextView
+                android:id="@+id/tv_ue_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ue.category}"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tv_ue_credit" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

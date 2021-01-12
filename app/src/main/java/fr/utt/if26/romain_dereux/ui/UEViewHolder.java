@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import fr.utt.if26.romain_dereux.databinding.LayoutUeItemBinding;
 import fr.utt.if26.romain_dereux.databinding.RecyclerviewUeItemBinding;
+import fr.utt.if26.romain_dereux.databinding.UeItemBinding;
 import fr.utt.if26.romain_dereux.model.UE;
 
 /**
@@ -14,9 +15,9 @@ import fr.utt.if26.romain_dereux.model.UE;
  */
 
 public class UEViewHolder extends RecyclerView.ViewHolder {
-    private LayoutUeItemBinding binding;
+    private UeItemBinding binding;
 
-    private UEViewHolder(LayoutUeItemBinding binding){
+    private UEViewHolder(UeItemBinding binding){
         super(binding.getRoot());
         this.binding = binding;
     }
@@ -26,7 +27,7 @@ public class UEViewHolder extends RecyclerView.ViewHolder {
 
     public static UEViewHolder create(ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        LayoutUeItemBinding itemBinding = LayoutUeItemBinding.inflate(layoutInflater, parent, false);
+        UeItemBinding itemBinding = UeItemBinding.inflate(layoutInflater, parent, false);
         return new UEViewHolder(itemBinding);
     }
 }

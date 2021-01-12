@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_delete"
         android:title="@string/action_delete"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_duplicate_cursus"
+        android:icon="@drawable/ic_baseline_content_copy_24"
+        android:title="@string/duplicate"
+        app:showAsAction="ifRoom"/>
 
 
 </menu>

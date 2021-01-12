@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -51,10 +52,10 @@ public class ViewCursusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_cursus);
+        cursus = (Cursus) getIntent().getSerializableExtra("cursus");
 
         /*  Toolbar */
         ActionBar actionBar = getSupportActionBar();
-        cursus = (Cursus) getIntent().getSerializableExtra("cursus");
         String title = getResources().getString(R.string.cursus);
         actionBar.setTitle(title.concat(cursus.getIdentifier()));
 
@@ -239,6 +240,8 @@ public class ViewCursusActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         Utility.setListViewHeightBasedOnChildren(listToBind);
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_view_cursus, menu);
@@ -260,6 +263,9 @@ public class ViewCursusActivity extends AppCompatActivity {
                 dialogAddUE.setBranche(branche);
                 dialogAddUE.setIdentifier(cursus.getIdentifier());
                 dialogAddUE.show(getSupportFragmentManager(), "new ue");
+                return true;
+            case R.id.action_duplicate_cursus:
+                duplicateCursus();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -295,5 +301,17 @@ public class ViewCursusActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    /**
+     * Function that duplicate the cursus in the database and then display a toast
+     */
+    public void duplicateCursus(){
+        cursus.setIdentifier(cursus.getIdentifier().concat("-copy"));
+        cursusViewModel.insert(cursus);
+        Toast.makeText(
+                getApplicationContext(),
+                "Cursus dupliqué",
+                Toast.LENGTH_LONG).show();
     }
 }
