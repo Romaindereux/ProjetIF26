@@ -68,6 +68,12 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:text="CS"/>
             <ListView
                 android:id="@+id/list_cs"
                 android:layout_width="match_parent"
@@ -81,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="30dp"
+                android:textColor="@color/red"
                 android:text="@{sumCs}" />
         </LinearLayout>
 
@@ -89,7 +96,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:text="TM"/>
             <ListView
                 android:id="@+id/list_tm"
                 android:layout_width="match_parent"
@@ -125,6 +137,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:text="ME"/>
                 <ListView
                     android:id="@+id/list_me"
                     android:layout_width="match_parent"
@@ -147,6 +165,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:text="HT"/>
                 <ListView
                     android:id="@+id/list_ht"
                     android:layout_width="match_parent"
@@ -182,6 +206,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:text="EC"/>
                 <ListView
                     android:id="@+id/list_ec"
                     android:layout_width="match_parent"

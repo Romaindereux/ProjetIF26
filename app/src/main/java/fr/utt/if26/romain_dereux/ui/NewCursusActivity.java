@@ -55,8 +55,6 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     public static final String EXTRA_REPLY_CURSUS = "cursus";
     private ActivityNewCursusBinding binding;
 
-    public String sigleDB;
-    public Integer creditDB;
 
     private List<String> listCsSigle, listTmSigle, listEcSigle, listMeSigle, listHtSigle;
     private List<Integer> listCsCredit, listTmCredit, listEcCredit, listMeCredit, listHtCredit;
@@ -64,8 +62,6 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
 
     private UEViewModel ueViewModel;
-    //private UEViewModel viewModelCS;  //Useless
-    private Spinner spinner;
 
     private ListView listViewCS, listViewTM, listViewEC, listViewME, listViewHT;
     private ArrayList<String> listCs, listTm, listEc, listMe, listHt;
@@ -78,7 +74,6 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     private int check = 0, checkTm=0, checkMe = 0, checkHt=0, checkEc=0;
 
-    private Toolbar mToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -387,6 +382,8 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
     }
 
 
+
+
     public void setListEventHandling(){
         setLongClickListenerList(listViewCS, listCs, listCSAdapter);
         setLongClickListenerList(listViewTM, listTm, listTMAdapter);
@@ -411,16 +408,22 @@ public class NewCursusActivity extends AppCompatActivity implements IAddCursus{
 
     @Override
     public void inflateNewCursus(){
-        Intent replyIntent = new Intent();
-        Cursus cursus = binding.getCursus();
-        replyIntent.putExtra(EXTRA_REPLY_CURSUS, cursus);
+        if (binding.etCursusIdentifier.getText().toString().matches("")) {
+            Toast.makeText(this, "You did not enter an identifier", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            Intent replyIntent = new Intent();
+            Cursus cursus = binding.getCursus();
+            replyIntent.putExtra(EXTRA_REPLY_CURSUS, cursus);
 
-        int brancheID = binding.getCursus().getBrancheID();
-        String branche = getResources().getStringArray(R.array.branches_array)[brancheID];
-        replyIntent.putExtra(EXTRA_REPLY_BRANCHE, branche);
+            int brancheID = binding.getCursus().getBrancheID();
+            String branche = getResources().getStringArray(R.array.branches_array)[brancheID];
+            replyIntent.putExtra(EXTRA_REPLY_BRANCHE, branche);
 
-        setResult(RESULT_OK, replyIntent);
-        finish();
+            setResult(RESULT_OK, replyIntent);
+            finish();
+        }
+
     }
 
     public void inflateNewUE(String category){

@@ -119,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         for (String sigle : cursus.getListHt()){
             sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
         }
+        if(cursus.isSt09()){
+            sum += 30;
+        }
+        if(cursus.isSt10()){
+            sum += 30;
+        }
         return sum;
     }
 

@@ -15,6 +15,7 @@ import fr.utt.if26.romain_dereux.ui.adapter.UEListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,11 +27,8 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class ViewCursusActivity extends AppCompatActivity {
 
@@ -59,14 +57,18 @@ public class ViewCursusActivity extends AppCompatActivity {
         String title = getResources().getString(R.string.cursus);
         actionBar.setTitle(title.concat(cursus.getIdentifier()));
 
-
-
-
-
-
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
 
+        bindData();
+
+        addEvent();
+    }
+
+    /**
+     * Bind all the data from the cursus into the view
+     */
+    public void bindData(){
         bindListUE(cursus.getListCs(), binding.listCs, "CS");
         bindListUE(cursus.getListTm(), binding.listTm, "TM");
         bindListUE(cursus.getListMe(), binding.listMe, "ME");
@@ -77,15 +79,22 @@ public class ViewCursusActivity extends AppCompatActivity {
         binding.setSt10(cursus.isSt10());
         binding.setNpml(cursus.isNpml());
         binding.setBranche(cursus.getBranche());
+    }
 
+    /**
+     * Add event listener for the checkbox and for longpress on an ue
+     */
+    public void addEvent(){
         addOnCheckedListener(binding.cbVcaNpml, "NPML");
         addOnCheckedListener(binding.cbVcaSt09, "ST09");
         addOnCheckedListener(binding.cbVcaSt10, "ST10");
 
         setLongPressOnUe();
-
     }
 
+    /**
+     * Set listener on all list
+     */
     public void setLongPressOnUe(){
         setLongPress(binding.listCs, cursus.getListCs(), "CS");
         setLongPress(binding.listTm, cursus.getListTm(), "TM");
@@ -94,6 +103,13 @@ public class ViewCursusActivity extends AppCompatActivity {
         setLongPress(binding.listHt, cursus.getListHt(), "HT");
 
     }
+
+    /**
+     * On long press, delete the ue from the db, and on the view
+     * @param listView
+     * @param list
+     * @param category
+     */
     public void setLongPress(ListView listView, ArrayList<String> list, String category){
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -103,6 +119,12 @@ public class ViewCursusActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Suppr Ue from view
+     * @param sigle
+     * @param category
+     */
     public void supprUEfromView(String sigle, String category){
         ArrayList<String> listUE;
         Converters converters = new Converters();
@@ -117,6 +139,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 listUE.remove(sigle);
                 listString = converters.writingStringFromList((ArrayList<String>)listUE);
                 cursusViewModel.updateListCs(listString, cursus.getIdentifier());
+                cursus.setListCs(listUE);
                 bindListUE(listUE,binding.listCs, "CS");
                 break;
             case "TM":
@@ -127,6 +150,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 listUE.remove(sigle);
                 listString = converters.writingStringFromList(listUE);
                 cursusViewModel.updateListTm(listString, cursus.getIdentifier());
+                cursus.setListTm(listUE);
                 bindListUE(listUE,binding.listTm, "TM");
                 break;
             case "EC":
@@ -137,6 +161,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 listUE.remove(sigle);
                 listString = converters.writingStringFromList(listUE);
                 cursusViewModel.updateListEc(listString, cursus.getIdentifier());
+                cursus.setListEc(listUE);
                 bindListUE(listUE,binding.listEc, "EC");
                 break;
             case "ME":
@@ -147,6 +172,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 listUE.remove(sigle);
                 listString = converters.writingStringFromList(listUE);
                 cursusViewModel.updateListMe(listString, cursus.getIdentifier());
+                cursus.setListMe(listUE);
                 bindListUE(listUE,binding.listMe, "ME");
                 break;
             case "HT":
@@ -157,6 +183,7 @@ public class ViewCursusActivity extends AppCompatActivity {
                 listUE.remove(sigle);
                 listString = converters.writingStringFromList(listUE);
                 cursusViewModel.updateListHt(listString, cursus.getIdentifier());
+                cursus.setListHt(listUE);
                 bindListUE(listUE,binding.listHt, "HT");
                 break;
         }
@@ -166,6 +193,11 @@ public class ViewCursusActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * get the sum of credit of the given cursus
+     * @param cursus Cursus: the cursus to get the sum of credit
+     * @return int: the sum of credit of the given cursus
+     */
     public int getSumCreditCursus(Cursus cursus){
         int sum=0;
         for (String sigle : cursus.getListCs()){
@@ -183,12 +215,21 @@ public class ViewCursusActivity extends AppCompatActivity {
         for (String sigle : cursus.getListHt()){
             sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
         }
+        if(cursus.isSt09()){
+            sum += 30;
+        }
+        if(cursus.isSt10()){
+            sum += 30;
+        }
         return sum;
     }
 
 
-
-
+    /**
+     * Add a listener on the given checkbox
+     * @param checkBox
+     * @param checkboxTitle
+     */
     public void addOnCheckedListener(CheckBox checkBox, String checkboxTitle){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -197,20 +238,28 @@ public class ViewCursusActivity extends AppCompatActivity {
                     case "NPML":
                         //Change npml in db
                         cursusViewModel.updateNpml(b, cursus.getIdentifier());
+                        cursus.setNpml(b);
                         break;
                     case "ST09":
                         cursusViewModel.updateSt09(b, cursus.getIdentifier());
+                        cursus.setSt09(b);
                         break;
                     case "ST10":
                         cursusViewModel.updateSt10(b, cursus.getIdentifier());
+                        cursus.setSt10(b);
                         break;
                 }
                 cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
                 cursusViewModel.updateValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180, cursus.getIdentifier());
-
+                binding.setSumTotal(String.valueOf(getSumCreditCursus(cursus)).concat(" / 180"));
             }
         });
     }
+
+    /**
+     * Reinitialize the given sum
+     * @param category
+     */
     public void renitializeSums(String category){
         switch (category){
             case "CS":
@@ -232,6 +281,12 @@ public class ViewCursusActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Bind the list into the view
+     * @param listString
+     * @param listToBind
+     * @param category
+     */
     public void bindListUE(ArrayList<String> listString, ListView listToBind, String category) {
         ListView listView = listToBind;
         ArrayList<UE> listUE = new ArrayList<>();
@@ -244,22 +299,70 @@ public class ViewCursusActivity extends AppCompatActivity {
             if (category == "CS") {
                 sumCs += ue.getCredit();
                 binding.setSumCs(String.valueOf(sumCs).concat(" / 24"));
+                if(sumCs >= 24){
+                    binding.tvSumCs.setTextColor(getResources().getColor(R.color.green));
+                }else{
+                    binding.tvSumCs.setTextColor(getResources().getColor(R.color.red));
+                }
             } else if (category == "TM") {
                 sumTm += ue.getCredit();
                 binding.setSumTm(String.valueOf(sumTm).concat(" / 24"));
+                if(sumTm >= 24){
+                    binding.tvSumTm.setTextColor(getResources().getColor(R.color.green));
+                }else{
+                    binding.tvSumTm.setTextColor(getResources().getColor(R.color.red));
+                }
             } else if (category == "ME") {
                 sumMe += ue.getCredit();
                 binding.setSumMe(String.valueOf(sumMe).concat(" / 4"));
+                if(sumMe >= 4){
+                    binding.tvSumMe.setTextColor(getResources().getColor(R.color.green));
+                }else{
+                    binding.tvSumMe.setTextColor(getResources().getColor(R.color.red));
+                }
             } else if (category == "HT") {
                 sumHt += ue.getCredit();
                 binding.setSumHt(String.valueOf(sumHt).concat(" / 4"));
+                if(sumHt >= 4){
+                    binding.tvSumHt.setTextColor(getResources().getColor(R.color.green));
+                }else{
+                    binding.tvSumHt.setTextColor(getResources().getColor(R.color.red));
+                }
             } else if (category == "EC") {
                 sumEc += ue.getCredit();
                 binding.setSumEc(String.valueOf(sumEc).concat(" / 12"));
+                if(sumEc >= 12){
+                    binding.tvSumEc.setTextColor(getResources().getColor(R.color.green));
+                }else{
+                    binding.tvSumEc.setTextColor(getResources().getColor(R.color.red));
+                }
             }
             binding.setSumCsTm(String.valueOf(sumCs + sumTm).concat(" / 84"));
+            if((sumCs + sumTm) >= 84){
+                binding.tvSumCsTm.setTextColor(getResources().getColor(R.color.green));
+            }else{
+                binding.tvSumCsTm.setTextColor(getResources().getColor(R.color.red));
+            }
             binding.setSumMeHt(String.valueOf(sumMe + sumHt).concat(" / 16"));
-            binding.setSumTotal(String.valueOf(sumCs + sumTm + sumMe + sumHt + sumEc).concat(" / 180"));
+            if((sumMe + sumHt) >= 16){
+                binding.tvSumMeHt.setTextColor(getResources().getColor(R.color.green));
+            }else{
+                binding.tvSumMeHt.setTextColor(getResources().getColor(R.color.red));
+            }
+            int internship = 0;
+            if(cursus.isSt09()){
+                internship += 30;
+            }
+            if(cursus.isSt10()){
+                internship += 30;
+            }
+            int sumCredit = sumCs + sumTm + sumMe + sumHt + sumEc + internship;
+            binding.setSumTotal(String.valueOf(sumCredit).concat(" / 180"));
+            if((sumCredit) >= 180){
+                binding.tvSumTotal.setTextColor(getResources().getColor(R.color.green));
+            }else{
+                binding.tvSumTotal.setTextColor(getResources().getColor(R.color.red));
+            }
 
         }
         Log.d(TAG, listUE.toString());
@@ -269,12 +372,22 @@ public class ViewCursusActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Create the options menu in the action bar
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_view_cursus, menu);
         return true;
     }
 
+    /**
+     * Add an event listener to the click of the action bar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -298,6 +411,10 @@ public class ViewCursusActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Refresh data given the new UE
+     * @param ue
+     */
     public void refreshData(UE ue){
         ArrayList<String> list;
         switch (ue.getCategory()){

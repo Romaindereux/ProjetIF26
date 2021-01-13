@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import fr.utt.if26.romain_dereux.MyApp;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.ActivityNewCursusBinding;
 import fr.utt.if26.romain_dereux.databinding.DialogNewUeBinding;
@@ -56,19 +58,20 @@ public class DialogNewUE extends DialogFragment {
     }
 
     public void createUE(){
-        Log.d(TAG, "onClick: new ue");
-        String sigleInput = binding.getSigle();
-        Integer creditInput = Integer.valueOf(binding.getCredit());
-        if(!sigleInput.equals("")){
-            UE ue = new UE(sigleInput, branche, category, creditInput);
-            ueViewModel.insert(ue);
-            NewCursusActivity newCursusActivity = (NewCursusActivity) getActivity();
-            newCursusActivity.addUE(sigleInput, category);
-
-
-
+        if (binding.dNueEtSigle.getText().toString().matches("") || binding.dNueEtCredit.getText().toString().matches("")) {
+            Toast.makeText(MyApp.getContext(), "You did not fill all the field", Toast.LENGTH_SHORT).show();
+        }else{
+            String sigleInput = binding.getSigle();
+            Integer creditInput = Integer.valueOf(binding.getCredit());
+            if(!sigleInput.equals("")){
+                UE ue = new UE(sigleInput, branche, category, creditInput);
+                ueViewModel.insert(ue);
+                NewCursusActivity newCursusActivity = (NewCursusActivity) getActivity();
+                newCursusActivity.addUE(sigleInput, category);
+            }
+            getDialog().dismiss();
         }
-        getDialog().dismiss();
+
     }
 
     public void setCategory(String category){

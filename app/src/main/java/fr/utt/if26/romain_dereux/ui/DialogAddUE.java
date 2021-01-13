@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,17 +52,38 @@ public class DialogAddUE extends DialogFragment {
         binding.setDialogAddUe(this);
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);
-        
-        populateSpinner();
 
+        List<String> listString = getAllUeFromCursus(identifier);
+        populateSpinner(listString);
+
+        // Force caps for category
+        binding.dNueEtCategory.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         return view;
+    }
+
+    /**
+     * Return a list with all the sigle of ue from a cursus given the identifier of this cursus
+     * @param identifier
+     * @return
+     */
+    public List<String> getAllUeFromCursus(String identifier){
+        Converters converters = new Converters();
+        List<String> allUe = new ArrayList<String>(converters.gettingListFromString(cursusViewModel.getListCs(identifier).get(0)));
+        allUe.addAll(converters.gettingListFromString(cursusViewModel.getListTm(identifier).get(0)));
+        allUe.addAll(converters.gettingListFromString(cursusViewModel.getListEc(identifier).get(0)));
+        allUe.addAll(converters.gettingListFromString(cursusViewModel.getListHt(identifier).get(0)));
+        allUe.addAll(converters.gettingListFromString(cursusViewModel.getListMe(identifier).get(0)));
+
+        Log.d(TAG, allUe.toString());
+        Log.d(TAG, String.valueOf(allUe.size()));
+        return allUe;
     }
 
     /**
      * This method populate the spinner with the UEs available depending of the branche.
      * It also add an event listener when the user click on one of the item
      */
-    public void populateSpinner(){
+    public void populateSpinner(List<String> list){
        ArrayList<String> listUE = new ArrayList<>();
        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, listUE);
        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -70,8 +92,10 @@ public class DialogAddUE extends DialogFragment {
            @Override
            public void onChanged(List<UE> ues) {
                for (UE ue : ues){
-                   listUE.add(ue.toString());
-                   spinnerAdapter.notifyDataSetChanged();
+                    if(! list.contains(ue.getSigle())){
+                        listUE.add(ue.toString());
+                        spinnerAdapter.notifyDataSetChanged();
+                    }
                }
            }
        });
@@ -162,6 +186,12 @@ public class DialogAddUE extends DialogFragment {
         }
         for (String sigle : cursus.getListHt()){
             sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        if(cursus.isSt09()){
+            sum += 30;
+        }
+        if(cursus.isSt10()){
+            sum += 30;
         }
         return sum;
     }
