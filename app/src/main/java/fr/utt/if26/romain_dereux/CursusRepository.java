@@ -88,4 +88,12 @@ public class CursusRepository {
         cursusDao.updateSt10(st10, id);
     }
 
+    public void updateValid(Boolean valid, String id){
+        cursusDao.updateValid(valid, id);
+    }
+
+    public List<Cursus> getCursusById(String id){
+        return cursusDao.getCursusById(id);
+    }
+
 }

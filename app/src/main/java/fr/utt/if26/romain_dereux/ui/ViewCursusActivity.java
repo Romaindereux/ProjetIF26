@@ -160,6 +160,30 @@ public class ViewCursusActivity extends AppCompatActivity {
                 bindListUE(listUE,binding.listHt, "HT");
                 break;
         }
+        cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
+        cursusViewModel.updateValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180, cursus.getIdentifier());
+
+
+    }
+
+    public int getSumCreditCursus(Cursus cursus){
+        int sum=0;
+        for (String sigle : cursus.getListCs()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListTm()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListEc()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListMe()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListHt()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        return sum;
     }
 
 
@@ -181,6 +205,9 @@ public class ViewCursusActivity extends AppCompatActivity {
                         cursusViewModel.updateSt10(b, cursus.getIdentifier());
                         break;
                 }
+                cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
+                cursusViewModel.updateValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180, cursus.getIdentifier());
+
             }
         });
     }
@@ -308,6 +335,7 @@ public class ViewCursusActivity extends AppCompatActivity {
      */
     public void duplicateCursus(){
         cursus.setIdentifier(cursus.getIdentifier().concat("-copy"));
+        cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
         cursusViewModel.insert(cursus);
         Toast.makeText(
                 getApplicationContext(),

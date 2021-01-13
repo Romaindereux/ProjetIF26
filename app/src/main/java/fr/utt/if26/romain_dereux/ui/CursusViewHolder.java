@@ -25,11 +25,14 @@ public class CursusViewHolder extends RecyclerView.ViewHolder implements View.On
 
         this.mListItemClickListener = listItemClickListener;
         this.itemView.setOnClickListener(this);
-        binding.circleValid.setColorFilter(Color.parseColor("#FF0000"));
+
     }
 
     public void bind(Cursus cursus) {
         binding.setCursus(cursus);
+        if (!cursus.isValid()){
+            binding.circleValid.setColorFilter(Color.parseColor("#FF0000"));
+        }
     }
 
     public static CursusViewHolder create(ViewGroup parent, ListItemClickListener listItemClickListener) {

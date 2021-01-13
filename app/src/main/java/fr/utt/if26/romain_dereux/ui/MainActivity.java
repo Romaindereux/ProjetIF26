@@ -15,6 +15,7 @@ import fr.utt.if26.romain_dereux.databinding.RecyclerviewCursusItemBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.ui.adapter.CursusListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
+import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements ListItemClickListener{
 
     private CursusViewModel cursusViewModel;
+    private UEViewModel ueViewModel;
     public static final int NEW_CURSUS_ACTIVITY_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private static final String KEY_TEXT_CREATE = "key_text_create";
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
             adapter.submitList(cursus);
         });
 
+        ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
+
 
         /* Fab button Listener */
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         if (requestCode == NEW_CURSUS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Cursus cursus = (Cursus) data.getSerializableExtra(NewCursusActivity.EXTRA_REPLY_CURSUS);
             cursus.setBranche(data.getStringExtra(NewCursusActivity.EXTRA_REPLY_BRANCHE));
-//            Cursus cursus = new Cursus(data.getStringExtra(NewCursusActivity.EXTRA_REPLY_ID), data.getStringExtra(NewCursusActivity.EXTRA_REPLY_BRANCHE),data.getStringArrayListExtra(NewCursusActivity.EXTRA_REPLY_LIST_CS), false );
+            cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
             cursusViewModel.insert(cursus);
         } else {
             Toast.makeText(
@@ -96,6 +100,26 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
                     R.string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public int getSumCreditCursus(Cursus cursus){
+        int sum=0;
+        for (String sigle : cursus.getListCs()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListTm()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListEc()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListMe()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListHt()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        return sum;
     }
 
 

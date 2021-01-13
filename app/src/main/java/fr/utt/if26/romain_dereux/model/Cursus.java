@@ -7,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
+import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
 
 
 @Entity(tableName = "cursus_table")
@@ -51,7 +53,12 @@ public class Cursus extends BaseObservable implements Serializable {
     @ColumnInfo(name="npml")
     private boolean mNpml = false;
 
-    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm,ArrayList<String> listEc,ArrayList<String> listMe,ArrayList<String> listHt,boolean st09, boolean st10, boolean npml){
+    @ColumnInfo(name = "valid")
+    private boolean mValid = false;
+
+
+
+    public Cursus(@NonNull String identifier, @NonNull String branche, ArrayList<String> listCs, ArrayList<String> listTm, ArrayList<String> listEc, ArrayList<String> listMe, ArrayList<String> listHt, boolean st09, boolean st10, boolean npml){
         this.mIdentifier = identifier;
         this.mBranche = branche;
         this.mListCs = listCs;
@@ -86,6 +93,14 @@ public class Cursus extends BaseObservable implements Serializable {
 
     public void setSt10(boolean st10) {
         this.mSt10 = st10;
+    }
+
+    public boolean isValid() {
+        return mValid;
+    }
+
+    public void setValid(boolean mValid) {
+        this.mValid = mValid;
     }
 
     public String getIdentifier(){
@@ -155,5 +170,6 @@ public class Cursus extends BaseObservable implements Serializable {
     public void setListHt(ArrayList<String> mListHt) {
         this.mListHt = mListHt;
     }
+
 
 }

@@ -24,6 +24,7 @@ import fr.utt.if26.romain_dereux.MyApp;
 import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.FragmentDialogAddUeBinding;
 import fr.utt.if26.romain_dereux.db.Converters;
+import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
@@ -140,7 +141,29 @@ public class DialogAddUE extends DialogFragment {
                 cursusViewModel.updateListHt(listString, identifier);
                 break;
         }
+        Cursus cursus = cursusViewModel.getCursusById(identifier).get(0);
+        cursus.setValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180);
+        cursusViewModel.updateValid(cursus.isNpml() && cursus.isSt09() && cursus.isSt10() && getSumCreditCursus(cursus) > 180, cursus.getIdentifier());
 
+    }
+    public int getSumCreditCursus(Cursus cursus){
+        int sum=0;
+        for (String sigle : cursus.getListCs()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListTm()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListEc()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListMe()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        for (String sigle : cursus.getListHt()){
+            sum += ueViewModel.getUEBySigle(sigle).get(0).getCredit();
+        }
+        return sum;
     }
 
     /**

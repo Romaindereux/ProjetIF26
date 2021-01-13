@@ -17,7 +17,7 @@ import fr.utt.if26.romain_dereux.db.dao.UEDao;
 import fr.utt.if26.romain_dereux.model.Cursus;
 import fr.utt.if26.romain_dereux.model.UE;
 
-@Database(entities = {Cursus.class, UE.class}, version = 8, exportSchema = false)
+@Database(entities = {Cursus.class, UE.class}, version = 9, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class CursusRoomDatabase extends RoomDatabase {
 

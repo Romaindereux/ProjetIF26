@@ -81,4 +81,10 @@ public class CursusViewModel extends AndroidViewModel {
     public void updateSt09(Boolean b, String id){mRepository.updateSt09(b, id);}
 
     public void updateSt10(Boolean b, String id){mRepository.updateSt10(b, id);}
+
+    public void updateValid(Boolean b, String id){mRepository.updateValid(b, id);}
+
+    public List<Cursus> getCursusById(String id){
+        return mRepository.getCursusById(id);
+    }
 }

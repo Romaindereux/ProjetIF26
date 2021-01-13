@@ -65,5 +65,11 @@ public interface CursusDao {
     @Query("UPDATE cursus_table SET st10 = :st10 WHERE identifier = :identifier")
     void updateSt10(Boolean st10, String identifier);
 
+    @Query("UPDATE cursus_table SET valid = :valid WHERE identifier = :identifier")
+    void updateValid(Boolean valid, String identifier);
+
+    @Query("SELECT * FROM cursus_table WHERE identifier = :identifier")
+    List<Cursus> getCursusById(String identifier);
+
 
 }
