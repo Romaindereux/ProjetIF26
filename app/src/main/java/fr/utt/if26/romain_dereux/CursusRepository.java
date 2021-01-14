@@ -95,5 +95,9 @@ public class CursusRepository {
     public List<Cursus> getCursusById(String id){
         return cursusDao.getCursusById(id);
     }
+    
+    public void deleteAll(){
+        cursusDao.deleteAll();
+    }
 
 }

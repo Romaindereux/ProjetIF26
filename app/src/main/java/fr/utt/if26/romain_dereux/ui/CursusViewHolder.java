@@ -32,6 +32,8 @@ public class CursusViewHolder extends RecyclerView.ViewHolder implements View.On
         binding.setCursus(cursus);
         if (!cursus.isValid()){
             binding.circleValid.setColorFilter(Color.parseColor("#FF0000"));
+        }else{
+            binding.circleValid.setColorFilter(Color.parseColor("#27B52C"));
         }
     }
 

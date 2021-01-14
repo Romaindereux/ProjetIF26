@@ -54,8 +54,7 @@ public class ViewCursusActivity extends AppCompatActivity {
 
         /*  Toolbar */
         ActionBar actionBar = getSupportActionBar();
-        String title = getResources().getString(R.string.cursus);
-        actionBar.setTitle(title.concat(cursus.getIdentifier()));
+        actionBar.setTitle(cursus.getIdentifier());
 
         ueViewModel = new ViewModelProvider(this).get(UEViewModel.class);
         cursusViewModel = new ViewModelProvider(this).get(CursusViewModel.class);

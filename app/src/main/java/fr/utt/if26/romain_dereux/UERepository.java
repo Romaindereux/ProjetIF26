@@ -53,4 +53,7 @@ public class UERepository {
     public ArrayList<UE> getUEBySigle(String sigle){
         return (ArrayList<UE>) ueDao.getUEBySigle(sigle);
     }
+    public void deleteAll(){
+        ueDao.deleteAll();
+    }
 }

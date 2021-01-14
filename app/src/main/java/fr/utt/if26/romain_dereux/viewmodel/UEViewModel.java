@@ -51,4 +51,8 @@ public class UEViewModel extends AndroidViewModel {
     }
 
     public void insert(UE ue) { mRepository.insert(ue); }
+
+    public void deleteAll(){
+        mRepository.deleteAll();
+    }
 }

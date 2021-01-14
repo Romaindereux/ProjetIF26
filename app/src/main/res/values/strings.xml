@@ -40,4 +40,6 @@
     <string name="modify">Modify</string>
     <string name="duplicate">Duplicate</string>
     <string name="list_ue">Liste des Ues</string>
+    <string name="remplir_la_base_de_donnee">Remplir la base de donnée</string>
+    <string name="empty_db">Vider la base de donnée</string>
 </resources>

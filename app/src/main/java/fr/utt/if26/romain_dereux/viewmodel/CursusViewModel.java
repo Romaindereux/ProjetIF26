@@ -87,4 +87,8 @@ public class CursusViewModel extends AndroidViewModel {
     public List<Cursus> getCursusById(String id){
         return mRepository.getCursusById(id);
     }
+
+    public void deleteAll(){
+        mRepository.deleteAll();
+    }
 }

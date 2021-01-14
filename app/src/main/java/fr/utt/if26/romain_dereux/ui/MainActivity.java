@@ -13,6 +13,7 @@ import fr.utt.if26.romain_dereux.R;
 import fr.utt.if26.romain_dereux.databinding.ActivityMainBinding;
 import fr.utt.if26.romain_dereux.databinding.RecyclerviewCursusItemBinding;
 import fr.utt.if26.romain_dereux.model.Cursus;
+import fr.utt.if26.romain_dereux.model.UE;
 import fr.utt.if26.romain_dereux.ui.adapter.CursusListAdapter;
 import fr.utt.if26.romain_dereux.viewmodel.CursusViewModel;
 import fr.utt.if26.romain_dereux.viewmodel.UEViewModel;
@@ -162,8 +163,94 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
                 Intent intent = new Intent(this, ViewListUEActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_populate_db:
+                populateDB();
+                return true;
+            case R.id.action_empty_db:
+                emptyDB();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void emptyDB(){
+        cursusViewModel.deleteAll();
+        ueViewModel.deleteAll();
+    }
+    /**
+     * Populate the db with data
+     */
+    public void populateDB(){
+        // CS ISI
+        ueViewModel.insert(new UE("GL02","ISI","CS",6));
+        ueViewModel.insert(new UE("NF20","ISI","CS",6));
+        ueViewModel.insert(new UE("IF02","ISI","CS",6));
+        ueViewModel.insert(new UE("LO12","ISI","CS",6));
+        ueViewModel.insert(new UE("IF09","ISI","CS",6));
+        ueViewModel.insert(new UE("IF10","ISI","CS",6));
+        ueViewModel.insert(new UE("NF16","ISI","CS",6));
+        // TM ISI
+        ueViewModel.insert(new UE("LO02","ISI","TM",6));
+        ueViewModel.insert(new UE("NF21","ISI","TM",6));
+        ueViewModel.insert(new UE("IF03","ISI","TM",6));
+        ueViewModel.insert(new UE("LO07","ISI","TM",6));
+        ueViewModel.insert(new UE("IF26","ISI","TM",6));
+        ueViewModel.insert(new UE("IF28","ISI","TM",6));
+        ueViewModel.insert(new UE("C01","ISI","TM",3));
+        ueViewModel.insert(new UE("C02","ISI","TM",3));
+        //EC
+        ueViewModel.insert(new UE("LC00","","EC",4));
+        ueViewModel.insert(new UE("LC01","","EC",4));
+        ueViewModel.insert(new UE("LC02","","EC",4));
+        ueViewModel.insert(new UE("LE20","","EC",4));
+        ueViewModel.insert(new UE("UX60","","EC",4));
+        ueViewModel.insert(new UE("UX61","","EC",4));
+        //ME
+        ueViewModel.insert(new UE("GE37","","ME",4));
+        ueViewModel.insert(new UE("GE41","","ME",6));
+        ueViewModel.insert(new UE("PM1","","ME",4));
+        //HT
+        ueViewModel.insert(new UE("PO03","","HT",4));
+        ueViewModel.insert(new UE("UX80","","HT",8));
+
+        ArrayList<String> listCs1 = new ArrayList<String>();
+        ArrayList<String> listTm1 = new ArrayList<String>();
+        ArrayList<String> listEc1 = new ArrayList<String>();
+        ArrayList<String> listMe1 = new ArrayList<String>();
+        ArrayList<String> listHt1 = new ArrayList<String>();
+        listCs1.add("GL02");
+        listCs1.add("NF20");
+        listCs1.add("IF02");
+        listCs1.add("LO12");
+        listCs1.add("IF09");
+        listCs1.add("IF10");
+        listCs1.add("NF16");
+        listTm1.add("LO02");
+        listTm1.add("NF21");
+        listTm1.add("IF03");
+        listTm1.add("LO07");
+        listTm1.add("IF26");
+        listTm1.add("IF28");
+        listTm1.add("C01");
+        listTm1.add("C02");
+        listEc1.add("LC00");
+        listEc1.add("LC01");
+        listEc1.add("LC02");
+        listEc1.add("LE20");
+        listEc1.add("UX60");
+        listEc1.add("UX61");
+        listMe1.add("GE37");
+        listMe1.add("GE41");
+        listMe1.add("PM1");
+        listHt1.add("PO03");
+        listHt1.add("UX80");
+
+        Cursus cursusRomain = new Cursus("Romain", "ISI",listCs1,listTm1,listEc1, listMe1,listHt1,true, false, true );
+        cursusRomain.setValid(false);
+        Cursus cursus2 = new Cursus("Cursus2", "ISI",listCs1,listTm1,listEc1, listMe1,listHt1,true, true, true );
+        cursus2.setValid(true);
+        cursusViewModel.insert(cursusRomain);
+        cursusViewModel.insert(cursus2);
     }
 
 
